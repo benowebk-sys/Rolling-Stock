@@ -1,613 +1,577 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPSZJKBK6M"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-DPSZJKBK6M');
-    </script>
-    
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Rolling stock</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Oswald:wght@500;700&family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rolling Stock | Technical Assessment</title>
     <style>
-:root{
-    --pure-black:#000000;
-    --dark-gray:#111111;
-    --mid-gray:#1f1f1f;
-    --light-gray:#333333;
-    --brand-red:#e11d48;
-    --brand-red-hover:#be123c;
-    --brand-green:#10b981;
-    --text-light:#f8fafc;
-}
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
 
-body{
-    font-family:'Inter','Noto Sans Arabic',sans-serif;
-    background-color:var(--pure-black);
-    color:var(--text-light);
-    margin:0;
-    overflow-x:hidden;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    -webkit-tap-highlight-color:transparent;
-}
+        :root {
+            --accent-red: #e63946;
+            --accent-red-dim: #9b2226;
+            --header-bg: #1a1a1a;
+            --page-bg: #0a0a0a;
+            --card-bg: #141414;
+            --surface-bg: #1e1e1e;
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+            --success: #10b981;
+            --error: #ef4444;
+            --border: #2a2a2a;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-.oswald{font-family:'Oswald',sans-serif;}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-.glass-effect{
-    background:rgba(10,10,10,0.9);
-    backdrop-filter:blur(12px);
-    border-bottom:2px solid var(--brand-red);
-}
+        body {
+            background-color: var(--page-bg);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
 
-.dark-card{
-    background:var(--dark-gray);
-    border:1px solid var(--light-gray);
-    box-shadow:0 10px 30px rgba(0,0,0,0.5);
-}
+        /* --- Header --- */
+        header {
+            background-color: var(--header-bg);
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 2px solid var(--accent-red);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+        }
 
-.btn-red{
-    background-color:var(--brand-red);
-    transition:all .3s ease;
-}
+        header h1 {
+            color: var(--text-main);
+            font-size: 1.25rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
 
-.btn-red:active{transform:scale(.98);}
-.btn-red:hover:not(:disabled){background-color:var(--brand-red-hover);}
+        header h1 span {
+            color: var(--accent-red);
+        }
 
-.btn-outline{
-    border:1px solid var(--light-gray);
-    background:transparent;
-    transition:all .3s ease;
-}
+        /* --- Main Content --- */
+        .viewport {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 15px;
+        }
 
-.fade-in{animation:fadeIn .5s ease-out forwards;}
+        .assessment-container {
+            width: 100%;
+            max-width: 700px;
+            perspective: 1000px;
+        }
 
-@keyframes fadeIn{
-from{opacity:0;transform:translateY(10px);}
-to{opacity:1;transform:translateY(0);}
-}
+        /* --- Card Design --- */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 4px;
+            position: relative;
+            transition: var(--transition);
+            animation: cardEnter 0.6s ease-out;
+            overflow: hidden;
+        }
 
-/* ===== LOGO FIX ===== */
+        @keyframes cardEnter {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-.train-logo-responsive{
-width:70px;
-height:70px;
-object-fit:cover;
-border-radius:12px;
-border:2px solid var(--brand-red);
-box-shadow:0 0 20px rgba(225,29,72,.45);
-transition:.3s;
-}
+        /* --- Progress Bar --- */
+        .progress-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #222;
+        }
 
-.train-logo-responsive:hover{
-transform:scale(1.05);
-}
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent-red-dim), var(--accent-red));
+            transition: width 0.5s var(--transition);
+            box-shadow: 0 0 10px var(--accent-red);
+        }
 
-@media(min-width:768px){
-.train-logo-responsive{
-width:110px;
-height:110px;
-}
-}
+        .context-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
 
-/* ===== NAMES LINE ===== */
+        .context-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--accent-red);
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 5px 10px;
+            background: rgba(230, 57, 70, 0.1);
+            border-radius: 2px;
+        }
 
-.names-line{
-display:flex;
-gap:30px;
-align-items:center;
-color:#ef4444;
-font-weight:600;
-font-size:14px;
-letter-spacing:3px;
-text-transform:uppercase;
-}
+        /* --- Toggle Hint System --- */
+        .hint-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: var(--transition);
+        }
 
-/* Mobile */
+        .hint-box {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, margin 0.3s ease, padding 0.3s ease;
+            background: #0f0f0f;
+            border-left: 2px solid var(--accent-red);
+        }
 
-@media(max-width:640px){
+        .hint-box.visible {
+            max-height: 200px;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            overflow-y: auto;
+        }
 
-header{padding:10px!important;}
+        .hint-content {
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
 
-#ui-title{font-size:15px!important;}
+        .meta-info {
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
 
-.names-line{
-font-size:9px!important;
-gap:12px;
-letter-spacing:1px;
-}
+        .question-body {
+            font-size: 1.1rem;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 2rem;
+            color: #fff;
+        }
 
-.train-logo-responsive{
-width:50px;
-height:50px;
-}
+        /* --- Response Grid --- */
+        .response-grid {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
 
-.welcome-title{font-size:24px!important;}
+        .response-grid.dual {
+            grid-template-columns: 1fr 1fr;
+        }
 
-#ui-welcome-desc{font-size:13px!important;}
+        .option-btn {
+            background: var(--surface-bg);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            padding: 0.9rem 1.1rem;
+            text-align: left;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-radius: 2px;
+            width: 100%;
+        }
 
-#ui-start-btn{
-font-size:14px;
-padding:12px 24px;
-}
+        .option-btn span {
+            flex-shrink: 0;
+            width: 20px;
+            font-weight: 700;
+            color: var(--accent-red);
+        }
 
-#question-text{font-size:17px!important;}
+        .option-btn:hover:not(:disabled) {
+            border-color: var(--accent-red);
+            color: #fff;
+            background: #252525;
+        }
 
-.option-card{
-padding:12px!important;
-font-size:14px!important;
-}
+        .option-btn.correct {
+            background: rgba(16, 185, 129, 0.15) !important;
+            border-color: var(--success) !important;
+            color: var(--success) !important;
+        }
 
-}
+        .option-btn.wrong {
+            background: rgba(239, 68, 68, 0.15) !important;
+            border-color: var(--error) !important;
+            color: var(--error) !important;
+        }
 
-.option-card{
-cursor:pointer;
-transition:all .2s ease;
-background:var(--mid-gray);
-border:1px solid transparent;
-user-select:none;
-}
+        /* --- Navigation --- */
+        .navigation-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            gap: 10px;
+        }
 
-.option-correct{
-background:rgba(16,185,129,.15)!important;
-border-color:var(--brand-green)!important;
-box-shadow:0 0 15px rgba(16,185,129,.1);
-}
+        .nav-link {
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
 
-.option-wrong{
-background:rgba(225,29,72,.15)!important;
-border-color:var(--brand-red)!important;
-box-shadow:0 0 15px rgba(225,29,72,.1);
-}
+        .action-btn {
+            background: var(--accent-red);
+            color: #fff;
+            border: none;
+            padding: 0.7rem 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: 2px;
+            font-size: 0.75rem;
+        }
 
-.progress-bar-fill{
-transition:width .6s cubic-bezier(.4,0,.2,1);
-background:linear-gradient(90deg,#9f1239,#e11d48);
-}
+        .clear-link {
+            display: block;
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #444;
+            font-size: 0.7rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
 
-[dir="rtl"] .oswald{
-font-family:'Noto Sans Arabic',sans-serif;
-font-weight:700;
-}
+        /* --- Results --- */
+        .results-panel { text-align: center; padding: 2.5rem 1.5rem; }
+        .score-display {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent-red);
+            margin: 1.5rem 0;
+        }
+        .score-sub {
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.75rem;
+        }
 
-[dir="rtl"] .tracking-widest{
-letter-spacing:0;
-}
-</style>
+        footer {
+            background: #000;
+            padding: 1.5rem;
+            text-align: center;
+            color: #444;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .hidden { display: none; }
+
+        svg { width: 16px; height: 16px; fill: currentColor; }
+
+        /* --- Small Screen Specifics --- */
+        @media (max-width: 480px) {
+            .card { padding: 1.5rem; }
+            .question-body { font-size: 1rem; }
+            .navigation-row { flex-direction: row; flex-wrap: wrap; justify-content: space-around; }
+            .nav-link { font-size: 0.65rem; }
+            .action-btn { width: 100%; order: -1; margin-bottom: 10px; padding: 0.85rem; }
+            .response-grid.dual { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <header class="w-full py-3 px-4 md:px-8 glass-effect sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto flex items-center justify-between gap-3">
-            <div class="flex items-center gap-3 md:gap-6">
-                <img src="logo.jpg" alt="Logo" class="train-logo-responsive" onerror="this.src='https://via.placeholder.com/100/fff/e11d48?text=LOGO'">
-                <div class="min-w-0">
-                    <h1 id="ui-title" class="oswald text-lg md:text-2xl font-bold tracking-tight text-white uppercase leading-tight truncate">Train Detection & Equipment</h1>
-                    <div id="ui-names" class="mt-1 border-l-2 border-red-600 pl-2 leading-tight">
-                        <div class="names-line">
-                            <span>D/Eyd</span>
-                            <span>Eng/Ahmed Mohamed</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <button onclick="toggleLanguage()" class="btn-outline px-3 py-1.5 rounded-lg text-[10px] md:text-xs font-bold uppercase flex items-center gap-1 shrink-0 text-white">
-                <span id="lang-label">العربية</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" /></svg>
-            </button>
-        </div>
+    <header>
+        <h1>Rolling<span>Stock</span></h1>
     </header>
 
-    <main class="flex-grow flex flex-col items-center justify-center p-4 md:p-8 relative">
-        <!-- Welcome Section -->
-        <section id="welcome-screen" class="max-w-3xl w-full text-center fade-in py-10">
-            <h2 id="ui-welcome-title" class="welcome-title text-4xl md:text-7xl font-bold mb-6 text-white leading-tight uppercase oswald">
-                Train Detection
-            </h2>
-            <p id="ui-welcome-desc" class="text-gray-400 text-sm md:text-xl mb-10 max-w-2xl mx-auto font-light leading-relaxed">
-                Professional assessment covering railway rolling stock systems, including couplers, door mechanisms.
-            </p>
-            <button onclick="startQuiz()" id="ui-start-btn" class="btn-red text-white font-bold py-5 px-12 md:px-20 rounded-full text-lg md:text-2xl shadow-2xl uppercase tracking-[0.2em]">
-                START ASSESSMENT
-            </button>
-        </section>
+    <main class="viewport">
+        <div class="assessment-container">
+            
+            <div id="quiz-ui">
+                <div class="card" id="main-card">
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progress-bar"></div>
+                    </div>
 
-        <!-- Quiz Section -->
-        <section id="quiz-screen" class="hidden max-w-3xl w-full fade-in">
-            <div class="mb-8">
-                <div class="flex justify-between items-end mb-3">
-                    <span id="current-question-num" class="text-red-500 font-bold text-xs md:text-sm uppercase tracking-widest font-mono">STEP 01</span>
-                    <span id="progress-text" class="text-gray-500 text-[10px] md:text-xs font-mono">0% READY</span>
-                </div>
-                <div class="w-full bg-stone-900 h-1.5 rounded-full overflow-hidden">
-                    <div id="progress-bar" class="progress-bar-fill h-full w-0"></div>
-                </div>
-            </div>
-            <div class="dark-card rounded-2xl p-6 md:p-12">
-<button onclick="showHint()" class="btn-outline w-full py-2 mb-4">
- Hint
-</button>
-<div id="hintBox" class="text-yellow-400 mb-4 text-sm"></div>
-<h3 id="question-text" class="text-xl md:text-3xl font-bold mb-10 text-white leading-tight">...</h3>
-<div id="options-container" class="grid gap-4"></div>   
-                <div class="mt-12 flex flex-col gap-4">
-                    <div class="flex gap-4">
-                        <button id="prev-btn" onclick="prevQuestion()" class="btn-outline flex-1 text-white font-bold py-4 px-4 rounded-xl text-xs md:text-base opacity-50">
-                            ← <span id="ui-back">Back</span>
+                    <div class="context-header">
+                        <div class="context-label">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                            Context
+                        </div>
+                        <button class="hint-toggle" id="hint-toggle-btn" onclick="toggleHint()">Show Hint</button>
+                    </div>
+
+                    <div id="hint-box" class="hint-box">
+                        <div class="hint-content" id="hint-text">...</div>
+                    </div>
+                    
+                    <div class="meta-info">Step <span id="current-index">01</span> / <span id="total-questions">25</span></div>
+                    <div class="question-body" id="question-content">Loading...</div>
+
+                    <div id="options-container" class="response-grid">
+                        <!-- Options loaded via JS -->
+                    </div>
+
+                    <div class="navigation-row">
+                        <button class="nav-link" onclick="goPrev()">
+                            <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                            Back
                         </button>
-                        <button id="skip-btn" onclick="skipQuestion()" class="btn-outline flex-1 text-white font-bold py-4 px-4 rounded-xl text-xs md:text-base">
-                            <span id="ui-skip">Skip</span>
+                        <button class="nav-link" onclick="goNext()">
+                            Skip
+                        </button>
+                        <button class="action-btn" id="next-btn" onclick="goNext()">
+                            Next Question
                         </button>
                     </div>
-                    <button id="next-btn" onclick="nextQuestion()" disabled class="btn-red w-full text-white font-bold py-5 rounded-xl text-sm md:text-xl disabled:opacity-20 uppercase tracking-widest">
-                        <span id="ui-next">Continue</span> →
-                    </button>
+
+                    <a class="clear-link" onclick="clearAnswer()">Reset Selection</a>
                 </div>
             </div>
-        </section>
 
-        <!-- Result Section -->
-        <section id="result-screen" class="hidden max-w-2xl w-full text-center fade-in">
-            <div class="dark-card rounded-3xl p-10 border-t-8 border-red-600">
-                <h2 id="ui-done" class="text-3xl md:text-4xl font-bold mb-6 text-white uppercase oswald">System Check Finalized</h2>
-                
-                <div class="flex justify-center gap-8 mb-10">
-                    <div>
-                        <div id="final-score" class="text-5xl md:text-6xl font-bold text-red-600">0</div>
-                        <div id="ui-points" class="text-gray-500 uppercase text-xs tracking-widest mt-2">Correct</div>
-                    </div>
-                    <div class="w-px h-16 bg-white/10"></div>
-                    <div>
-                        <div id="final-percent" class="text-5xl md:text-6xl font-bold text-white">0%</div>
-                        <div id="ui-accuracy" class="text-gray-500 uppercase text-xs tracking-widest mt-2">Accuracy</div>
-                    </div>
+            <div id="results-ui" class="hidden">
+                <div class="card results-panel">
+                    <div class="context-label">Complete</div>
+                    <div class="score-display" id="final-percentage">0%</div>
+                    <div class="score-sub" id="final-raw">0 / 25 Correct</div>
+                    <button class="action-btn" style="width: 100%" onclick="location.reload()">Restart Assessment</button>
                 </div>
-
-                <div id="motivational-msg" class="text-white bg-[#3C2947] p-6 rounded-2xl mb-10 font-bold text-lg md:text-xl">
-                    Evaluation complete.
-                </div>
-
-                <button onclick="restartQuiz()" id="ui-restart" class="btn-red w-full text-white font-bold py-5 rounded-2xl text-lg uppercase tracking-widest shadow-xl">
-                    RE-INITIALIZE
-                </button>
             </div>
-        </section>
+
+        </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="w-full py-10 px-4 bg-black border-t border-white/5">
-        <div class="max-w-6xl mx-auto text-center">
-            <div id="ui-footer-prog" class="oswald text-xl md:text-2xl font-bold tracking-[0.3em] text-red-600 uppercase mb-2">
-                By Programmer Bilal Mohammed
-            </div>
-            <div id="ui-footer-sub" class="text-gray-600 text-[10px] md:text-xs uppercase tracking-[0.2em] font-medium">
-                &nbsp;
-            </div>
-        </div>
+    <footer>
+        Developed by Bilal Mohamed
     </footer>
 
     <script>
-        const translations = {
-            en: {
-                title: "Rolling stock",
-                welcomeTitle: "Rolling stock",
-                startBtn: "START ASSESSMENT",
-                back: "Back",
-                skip: "Skip",
-                next: "Continue",
-                done: "System Check Finalized",
-                points: "Correct",
-                accuracy: "Accuracy",
-                restart: "RE-INITIALIZE",
-                langBtn: "العربية",
-                qPrefix: "STEP",
-                complete: "READY",
-                footerProg: "By Programmer Bilal Mohammed",
-                footerSub: "&nbsp;",
-                msg: "Your effort is appreciated! Keep learning."
-            },
-           
-        };
-const rawQuestions = [
+        const quizData = [
+            { type: "mcq", q: "What is the primary function of a train coupler?", options: ["Passenger comfort", "Coach decoration", "Connecting coaches and transmitting forces", "Noise insulation"], a: 2, h: "Rolling stock requires a mechanical link to transmit traction and braking forces along the train." },
+            { type: "mcq", q: "Which coupler is considered obsolete due to safety risks?", options: ["Buckeye", "Screw coupling", "Bar coupler", "Link-and-Pin"], a: 3, h: "This 19th-century system caused many fatalities as staff had to stand between cars to insert pins." },
+            { type: "mcq", q: "Which coupler is mainly used in fixed-formation trainsets?", options: ["Screw coupling", "Bar coupler", "Buckeye coupler", "Scharfenberg coupler"], a: 1, h: "A semi-permanent bar is used when coaches are rarely detached, common in EMUs/DMUs." },
+            { type: "mcq", q: "The Screw Coupling relies on which additional component to absorb shock (pushing forces)?", options: ["Knuckle", "Air springs", "Side buffers", "Gear box"], a: 2, h: "Side buffers handle the compression forces, while the screw coupling handles the tension." },
+            { type: "mcq", q: "Which coupler integrates mechanical, pneumatic, and electrical connections (fully automatic)?", options: ["Buckeye", "Bar coupler", "Screw coupling", "Scharfenberg"], a: 3, h: "A high-tech coupler that automatically connects air and signal lines simultaneously." },
+            { type: "mcq", q: "Which coupler is standard for heavy-haul freight railways (characterized by a 'knuckle' shape)?", options: ["Screw coupling", "Buckeye (Janney/Knuckle) coupler", "Bar coupler", "Link-and-Pin"], a: 1, h: "The knuckle design is robust enough for extremely heavy North American and Australian freight trains." },
+            { type: "mcq", q: "Which door type is considered a major safety risk?", options: ["Plug doors", "Sliding pocket doors", "Slam doors", "External sliding doors"], a: 2, h: "These manually latched doors could swing open during motion and were phased out for safety." },
+            { type: "mcq", q: "Which door type provides the best acoustic insulation?", options: ["Slam doors", "Bi-folding doors", "Plug doors", "Sliding pocket doors"], a: 2, h: "The plug mechanism pushes the door against the frame, creating a superior airtight/acoustic seal." },
+            { type: "mcq", q: "Why are sliding pocket doors used in urban rail (metro) systems?", options: ["They are cheaper", "They reduce maintenance", "They maximize interior space", "They improve aerodynamics"], a: 2, h: "Recessing into the walls prevents them from obstructing the aisle or the platform space." },
+            { type: "mcq", q: "Which door system is easiest to maintain?", options: ["Plug doors", "External sliding doors", "Bi-folding doors", "Slam doors"], a: 1, h: "External tracks are simple to access and clean compared to internal mechanisms." },
+            { type: "mcq", q: "In a split air-conditioned coach, the 'evaporator' is typically responsible for:", options: ["Compressing the refrigerant gas", "Cooling the air before it is blown into the passenger area", "Releasing heat to the outside environment", "Heating the cabin during winter"], a: 1, h: "Heat from the cabin air is absorbed into the refrigerant at the evaporator stage." },
+            { type: "mcq", q: "In a coach heating system, 'convection heaters' are usually located:", options: ["On the ceiling", "Inside the luggage racks", "Near the floor level along the side walls", "Inside the toilet compartments"], a: 2, h: "Natural convection relies on hot air rising, necessitating floor-level placement." },
+            { type: "tf", q: "The Link-and-Pin coupler requires automatic operation.", a: false, h: "It is a manual system that required shunt workers to stand between vehicles." },
+            { type: "tf", q: "Bar couplers are suitable for trains that frequently change coach numbers.", a: false, h: "Bar couplers are semi-permanent and difficult to decouple quickly." },
+            { type: "tf", q: "Screw couplings are common in Europe and the Middle East.", a: true, h: "This is the traditional standard across many continental rail systems." },
+            { type: "tf", q: "Buckeye couplers eliminate the need for workers to stand between coaches.", a: true, h: "The automatic knuckle mechanism engages upon impact." },
+            { type: "tf", q: "Scharfenberg couplers allow slack between connected coaches.", a: false, h: "They provide a tight, rigid connection to protect air and electrical links." },
+            { type: "tf", q: "Slam doors can be safely opened while the train is moving.", a: false, h: "This practice is extremely dangerous and strictly prohibited in modern operations." },
+            { type: "tf", q: "Bi-folding doors require frequent maintenance due to multiple moving parts.", a: true, h: "More hinges and pivots increase the likelihood of mechanical failure." },
+            { type: "tf", q: "Plug doors sit flush with the train body to reduce aerodynamic drag.", a: true, h: "This feature is vital for energy efficiency and noise reduction on high-speed lines." },
+            { type: "tf", q: "External sliding doors are commonly used in metro systems.", a: true, h: "They provide reliable, fast operation for high-frequency urban transit." },
+            { type: "tf", q: "Modern railway engineering focuses on safety, efficiency, and passenger comfort.", a: true, h: "These represent the fundamental engineering requirements of modern rolling stock." },
+            { type: "tf", q: "In a 'Screw Coupler' arrangement, the drawbar is primarily used to absorb the pushing forces.", a: false, h: "Drawbars pull (tension); side buffers absorb the push (compression)." },
+            { type: "tf", q: "In a split air-conditioned coach, the 'evaporator' is typically responsible for releasing heat to the outside environment.", a: false, h: "The condenser releases heat; the evaporator absorbs it from the cabin." },
+            { type: "tf", q: "In a coach heating system, 'convection heaters' are usually located near the ceiling for maximum efficiency.", a: false, h: "Heating efficiency is maximized when units are placed at floor level to allow heat to rise." }
+        ];
 
-{
-en:{
-q:"What is the primary function of a train coupler?",
-o:["Passenger comfort","Coach decoration","Connecting coaches and transmitting forces","Noise insulation"],
-hint:"It is the device used to connect train coaches together."
-},
-ans:2
-},
+        let currentIndex = 0;
+        let userAnswers = new Array(quizData.length).fill(null);
+        let hintVisible = false;
 
-{
-en:{
-q:"Which coupler is considered obsolete due to safety risks?",
-o:["Buckeye","Screw coupling","Bar coupler","Link-and-Pin"],
-hint:"This old system required workers to stand between railcars."
-},
-ans:3
-},
+        const card = document.getElementById('main-card');
+        const hintBox = document.getElementById('hint-box');
+        const hintText = document.getElementById('hint-text');
+        const hintToggleBtn = document.getElementById('hint-toggle-btn');
+        const qText = document.getElementById('question-content');
+        const idxDisplay = document.getElementById('current-index');
+        const totalDisplay = document.getElementById('total-questions');
+        const optionsContainer = document.getElementById('options-container');
+        const progressBar = document.getElementById('progress-bar');
+        const nextBtn = document.getElementById('next-btn');
 
-{
-en:{
-q:"Which coupler is mainly used in fixed-formation trainsets?",
-o:["Screw coupling","Bar coupler","Buckeye coupler","Scharfenberg coupler"],
-hint:"It creates a semi-permanent connection between cars."
-},
-ans:1
-},
-
-{
-en:{
-q:"The Screw Coupling relies on which additional component to absorb shock?",
-o:["Knuckle","Air springs","Side buffers","Gear box"],
-hint:"Look at the round plates on both sides between European coaches."
-},
-ans:2
-},
-
-{
-en:{
-q:"Which coupler integrates mechanical pneumatic and electrical connections?",
-o:["Buckeye","Bar coupler","Screw coupling","Scharfenberg"],
-hint:"Modern high-speed trains and metros commonly use this coupler."
-},
-ans:3
-},
-
-{
-en:{
-q:"Which coupler is standard for heavy-haul freight railways?",
-o:["Screw coupling","Buckeye coupler","Bar coupler","Link-and-Pin"],
-hint:"This coupler has a knuckle shape and locks automatically."
-},
-ans:1
-},
-
-{
-en:{
-q:"Which door type is considered a major safety risk?",
-o:["Plug doors","Sliding pocket doors","Slam doors","External sliding doors"],
-hint:"Old trains had passengers opening this door manually."
-},
-ans:2
-},
-
-{
-en:{
-q:"Which door type provides the best acoustic insulation?",
-o:["Slam doors","Bi-folding doors","Plug doors","Sliding pocket doors"],
-hint:"This door seals tightly against the train body."
-},
-ans:2
-},
-
-{
-en:{
-q:"Why are sliding pocket doors used in urban rail systems?",
-o:["They are cheaper","They reduce maintenance","They maximize interior space","They improve aerodynamics"],
-hint:"These doors slide inside the wall so they save space."
-},
-ans:2
-},
-
-{
-en:{
-q:"Which door system is easiest to maintain?",
-o:["Plug doors","External sliding doors","Bi-folding doors","Slam doors"],
-hint:"This door slides outside the train body."
-},
-ans:1
-},
-
-{
-en:{
-q:"Which coupler type has a knuckle shape and is standard for heavy-haul trains?",
-o:["Link and Pin","Screw Coupler","Buckeye Coupler","Bar Coupler"],
-hint:"Also called the Janney coupler."
-},
-ans:2
-},
-
-{
-en:{
-q:"In a Screw Coupler arrangement what absorbs pushing forces between coaches?",
-o:["The drawbar","Side buffers","The knuckle","The pivot pin"],
-hint:"These round buffers are placed on both sides of the coupler."
-},
-ans:1
-},
-
-{
-en:{
-q:"Which door is flush with the bodyside and moves outward before sliding?",
-o:["Slam door","Sliding pocket door","Plug door","Bi-folding door"],
-hint:"The door pops out slightly before sliding."
-},
-ans:2
-},
-
-{
-en:{
-q:"Slam doors are mainly characterized by:",
-o:["Being operated by compressed air","Hinged doors opened manually outward","Sliding into a wall cavity","Folding in the middle"],
-hint:"Passengers used to slam this door shut."
-},
-ans:1
-},
-
-{
-en:{
-q:"A Sliding Pocket Door differs from an Exterior Sliding Door because:",
-o:["It opens faster","It slides into a cavity within the coach wall","It is used only for freight","It requires no electricity"],
-hint:"The door disappears inside the wall."
-},
-ans:1
-},
-
-{
-en:{
-q:"In a split air conditioned coach the evaporator is responsible for:",
-o:["Compressing refrigerant gas","Cooling the air before entering the cabin","Releasing heat outside","Heating the cabin"],
-hint:"This component absorbs heat from the air."
-},
-ans:1
-}
-
-];
-
-        let currentLang = 'en';
-        let currentIdx = 0;
-        let userAnswers = new Array(rawQuestions.length).fill(null);
-
-        function toggleLanguage() {
-            currentLang = currentLang === 'en' ? 'ar' : 'en';
-            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-            updateUIStrings();
-            if (!document.getElementById('quiz-screen').classList.contains('hidden')) loadQuestion();
+        function init() {
+            totalDisplay.innerText = quizData.length.toString().padStart(2, '0');
+            renderQuestion();
         }
 
-        function updateUIStrings() {
-            const t = translations[currentLang];
-            document.getElementById('ui-title').innerText = t.title;
-            document.getElementById('ui-welcome-title').innerHTML = t.welcomeTitle;
-            document.getElementById('ui-start-btn').innerText = t.startBtn;
-            document.getElementById('ui-back').innerText = t.back;
-            document.getElementById('ui-skip').innerText = t.skip;
-            document.getElementById('ui-next').innerText = t.next;
-            document.getElementById('ui-done').innerText = t.done;
-            document.getElementById('ui-points').innerText = t.points;
-            document.getElementById('ui-accuracy').innerText = t.accuracy;
-            document.getElementById('ui-restart').innerText = t.restart;
-            document.getElementById('lang-label').innerText = t.langBtn;
-            document.getElementById('ui-footer-prog').innerText = t.footerProg;
-            document.getElementById('ui-footer-sub').innerHTML = t.footerSub;
-        }
-
-        function startQuiz() {
-            window.scrollTo(0, 0);
-            document.getElementById('welcome-screen').classList.add('hidden');
-            document.getElementById('quiz-screen').classList.remove('hidden');
-            currentIdx = 0;
-            userAnswers = new Array(rawQuestions.length).fill(null);
-            loadQuestion();
-        }
-
-        function loadQuestion() {
-            const data = rawQuestions[currentIdx][currentLang];
-            const t = translations[currentLang];
-            const userAnswer = userAnswers[currentIdx];
-            const correctAns = rawQuestions[currentIdx].ans;
-            document.getElementById("hintBox").innerText = "";
-            
-            document.getElementById('current-question-num').innerText = `${t.qPrefix} ${String(currentIdx + 1).padStart(2, '0')}`;
-            document.getElementById('question-text').innerText = data.q;
-            
-            const progress = Math.round((currentIdx / rawQuestions.length) * 100);
-            document.getElementById('progress-bar').style.width = `${progress}%`;
-            document.getElementById('progress-text').innerText = `${progress}% ${t.complete}`;
-
-            const container = document.getElementById('options-container');
-            container.innerHTML = '';
-            
-            data.o.forEach((opt, i) => {
-                const card = document.createElement('div');
-                let cardClass = `option-card p-5 rounded-xl flex items-center gap-4 text-white font-semibold border border-white/5 `;
-                
-                // Logic for showing correct/incorrect
-                if (userAnswer !== null && userAnswer !== -1) {
-                    if (i === correctAns) {
-                        cardClass += " option-correct ";
-                    } else if (i === userAnswer) {
-                        cardClass += " option-wrong ";
-                    }
-                } else if (userAnswer === i) {
-                     cardClass += " border-red-600 bg-red-600/10 ";
-                }
-                
-                card.className = cardClass;
-                
-                const bulletColor = (userAnswer !== null && userAnswer !== -1 && i === correctAns) ? 'text-white bg-green-600' : 
-                                    (userAnswer !== null && userAnswer !== -1 && i === userAnswer) ? 'text-white bg-red-600' : 'text-red-500 bg-black';
-
-                card.innerHTML = `
-                    <div class="w-8 h-8 rounded-lg flex items-center justify-center font-black border border-red-600/20 ${bulletColor}">
-                        ${String.fromCharCode(65 + i)}
-                    </div>
-                    <span>${opt}</span>
-                `;
-
-                if (userAnswer === null) {
-                    card.onclick = () => {
-                        userAnswers[currentIdx] = i;
-                        loadQuestion();
-                    };
-                } else {
-                    card.style.cursor = 'default';
-                }
-                container.appendChild(card);
-            });
-
-            const prevBtn = document.getElementById('prev-btn');
-            prevBtn.disabled = currentIdx === 0;
-            prevBtn.style.opacity = currentIdx === 0 ? '0.2' : '1';
-            document.getElementById('next-btn').disabled = userAnswers[currentIdx] === null;
-        }
-
-        function nextQuestion() {
-            if (currentIdx < rawQuestions.length - 1) {
-                currentIdx++;
-                loadQuestion();
+        function toggleHint() {
+            hintVisible = !hintVisible;
+            if (hintVisible) {
+                hintBox.classList.add('visible');
+                hintToggleBtn.innerText = "Hide Hint";
             } else {
-                calculateResults();
+                hintBox.classList.remove('visible');
+                hintToggleBtn.innerText = "Show Hint";
             }
         }
 
-        function prevQuestion() {
-            if (currentIdx > 0) {
-                currentIdx--;
-                loadQuestion();
-            }
+        function resetHint() {
+            hintVisible = false;
+            hintBox.classList.remove('visible');
+            hintToggleBtn.innerText = "Show Hint";
         }
 
-        function skipQuestion() {
-            if (userAnswers[currentIdx] === null) userAnswers[currentIdx] = -1;
-            nextQuestion();
+        function updateProgressBar() {
+            const answeredCount = userAnswers.filter(a => a !== null).length;
+            const progress = (answeredCount / quizData.length) * 100;
+            progressBar.style.width = progress + '%';
         }
 
-        function calculateResults() {
-            window.scrollTo(0, 0);
-            document.getElementById('quiz-screen').classList.add('hidden');
-            document.getElementById('result-screen').classList.remove('hidden');
+        function renderQuestion() {
+            const data = quizData[currentIndex];
+            idxDisplay.innerText = (currentIndex + 1).toString().padStart(2, '0');
+            qText.innerText = data.q;
+            hintText.innerText = data.h;
             
-            let score = 0;
-            userAnswers.forEach((ans, i) => {
-                if (ans === rawQuestions[i].ans) score++;
-            });
+            resetHint();
+            updateProgressBar();
 
-            document.getElementById('final-score').innerText = score;
-            const pct = Math.round((score / rawQuestions.length) * 100);
-            document.getElementById('final-percent').innerText = `${pct}%`;
+            card.style.animation = 'none';
+            card.offsetHeight; 
+            card.style.animation = 'cardEnter 0.6s ease-out';
+
+            optionsContainer.innerHTML = '';
+            const isAnswered = userAnswers[currentIndex] !== null;
+            
+            // Highlight Next Button if answered
+            nextBtn.style.opacity = isAnswered ? "1" : "0.7";
+
+            if (data.type === "mcq") {
+                optionsContainer.className = "response-grid";
+                data.options.forEach((opt, i) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn';
+                    btn.innerHTML = `<span>${String.fromCharCode(65 + i)}</span> ${opt}`;
+                    btn.onclick = () => handleSelect(i);
+                    
+                    if (isAnswered) {
+                        btn.disabled = true;
+                        if (i === data.a) btn.classList.add('correct');
+                        if (userAnswers[currentIndex] === i && i !== data.a) btn.classList.add('wrong');
+                    }
+                    optionsContainer.appendChild(btn);
+                });
+            } else {
+                optionsContainer.className = "response-grid dual";
+                [true, false].forEach((val) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn';
+                    btn.style.justifyContent = "center";
+                    btn.innerText = val ? "TRUE" : "FALSE";
+                    btn.onclick = () => handleSelect(val);
+                    
+                    if (isAnswered) {
+                        btn.disabled = true;
+                        if (val === data.a) btn.classList.add('correct');
+                        if (userAnswers[currentIndex] === val && val !== data.a) btn.classList.add('wrong');
+                    }
+                    optionsContainer.appendChild(btn);
+                });
+            }
         }
 
-        function restartQuiz() {
-            location.reload();
+        function handleSelect(choice) {
+            if (userAnswers[currentIndex] !== null) return;
+            userAnswers[currentIndex] = choice;
+            renderQuestion();
         }
 
-        updateUIStrings();
-       function showHint(){
-document.getElementById("hintBox").innerText =
-rawQuestions[currentIdx][currentLang].hint;
-}
+        function goNext() {
+            if (currentIndex < quizData.length - 1) {
+                currentIndex++;
+                renderQuestion();
+            } else if (userAnswers.filter(a => a !== null).length === quizData.length) {
+                showResults();
+            } else {
+                // If skipping last question or trying to finish without answering all
+                showResults();
+            }
+        }
+
+        function goPrev() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                renderQuestion();
+            }
+        }
+
+        function clearAnswer() {
+            userAnswers[currentIndex] = null;
+            renderQuestion();
+        }
+
+        function showResults() {
+            document.getElementById('quiz-ui').classList.add('hidden');
+            const resultsUi = document.getElementById('results-ui');
+            resultsUi.classList.remove('hidden');
+
+            const score = userAnswers.reduce((total, ans, idx) => {
+                return (ans === quizData[idx].a) ? total + 1 : total;
+            }, 0);
+
+            const percentage = Math.round((score / quizData.length) * 100);
+            document.getElementById('final-percentage').innerText = percentage + '%';
+            document.getElementById('final-raw').innerText = `${score} / ${quizData.length} Corrected Entries`;
+        }
+
+        window.onload = init;
     </script>
 </body>
 </html>
