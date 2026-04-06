@@ -3,24 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rolling Stock | Technical Assessment</title>
+    <title>Rolling Stock | Technical Command Center</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&family=Tajawal:wght@400;500;700&display=swap');
 
         :root {
-            --accent-red: #e63946;
-            --accent-red-dim: #9b2226;
-            --header-bg: #1a1a1a;
-            --page-bg: #0a0a0a;
-            --card-bg: #141414;
-            --surface-bg: #1e1e1e;
-            --text-main: #ffffff;
-            --text-dim: #a0a0a0;
-            --success: #10b981;
-            --error: #ef4444;
-            --border: #2a2a2a;
-            --bebo-purple: #a855f7;
-            --bebo-bg: #1e1e2e;
+            --accent-red: #ff3e3e;
+            --accent-red-glow: rgba(255, 62, 62, 0.6);
+            --accent-red-dim: rgba(255, 62, 62, 0.15);
+            --bg-page: #040406;
+            --bg-card: rgba(16, 16, 22, 0.94);
+            --bg-surface: rgba(35, 35, 45, 0.7);
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --border-subtle: rgba(255, 255, 255, 0.1);
+            --bebo-purple: #c084fc;
+            --bebo-green: #22c55e;
+            --glass-blur: blur(15px);
             --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -31,592 +30,608 @@
         }
 
         body {
-            background-color: var(--page-bg);
+            background-color: var(--bg-page);
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                radial-gradient(circle at 50% 0%, rgba(255, 62, 62, 0.08) 0%, transparent 60%);
+            background-size: 25px 25px, 25px 25px, 100% 100%;
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
             overflow-x: hidden;
+            direction: ltr;
         }
 
+        /* --- Header: More compact --- */
         header {
-            background-color: var(--header-bg);
-            height: 70px;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-bottom: 2px solid var(--accent-red);
+            border-bottom: 1px solid var(--border-subtle);
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.6);
         }
 
         header h1 {
-            color: var(--text-main);
-            font-size: 1.25rem;
-            letter-spacing: 3px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.3rem;
+            letter-spacing: 6px;
             text-transform: uppercase;
-            font-weight: 800;
+            font-weight: 700;
         }
 
-        header h1 span {
-            color: var(--accent-red);
+        header h1 span { color: var(--accent-red); text-shadow: 0 0 10px var(--accent-red-glow); }
+
+        .header-line {
+            position: absolute;
+            bottom: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 2px;
+            background: var(--accent-red);
+            box-shadow: 0 0 10px var(--accent-red);
         }
 
         .viewport {
             flex: 1;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            padding: 40px 15px;
+            padding: 25px 8px 12px 8px;
         }
 
         .assessment-container {
             width: 100%;
-            max-width: 750px;
+            max-width: 650px; /* Optimized for mobile */
         }
 
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 2.5rem;
-            border-radius: 8px;
-            position: relative;
-            transition: var(--transition);
-            animation: cardEnter 0.6s ease-out;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-
-        @keyframes cardEnter {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .progress-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: #222;
-            border-radius: 8px 8px 0 0;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--accent-red-dim), var(--accent-red));
-            transition: width 0.5s var(--transition);
-            box-shadow: 0 0 10px var(--accent-red);
-        }
-
-        .ui-top-row {
+        /* --- Bebo Section --- */
+        .bebo-wrapper {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 2rem;
-            gap: 20px;
-        }
-
-        .bebo-integration {
-            display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 15px;
+            margin-bottom: 1rem;
             position: relative;
         }
 
-        .bebo-visual {
-            width: 60px;
-            height: 60px;
-            background: var(--bebo-bg);
-            border-radius: 18px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            position: relative;
-            box-shadow: inset 0 0 15px rgba(255,255,255,0.05), 0 10px 20px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .bebo-eye {
-            width: 10px;
-            height: 14px;
-            background: var(--bebo-purple);
-            border-radius: 4px;
-            box-shadow: 0 0 15px var(--bebo-purple);
-            transition: all 0.3s ease;
-        }
-
-        .bebo-visual.thinking .bebo-eye { height: 4px; opacity: 0.6; }
-        .bebo-visual.correct .bebo-eye { background: #10b981; box-shadow: 0 0 15px #10b981; height: 16px; }
-        .bebo-visual.error .bebo-eye { background: var(--error); box-shadow: 0 0 15px var(--error); transform: scaleY(0.5); }
-        .bebo-visual.aggressive .bebo-eye { background: #facc15; box-shadow: 0 0 15px #facc15; transform: rotate(15deg); }
+        @media (min-width: 768px) { .bebo-wrapper { align-items: flex-end; } }
 
         .bebo-bubble {
-            background: #1e1e1e;
-            border: 1px solid var(--border);
-            padding: 12px 18px;
-            border-radius: 4px 16px 16px 16px;
-            font-size: 0.85rem;
-            color: var(--text-main);
-            max-width: 250px;
-            line-height: 1.4;
-            opacity: 0;
-            transform: translateX(-10px);
+            background: rgba(25, 32, 48, 0.96);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-subtle);
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            color: #fff;
+            margin-bottom: 6px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+            max-width: 320px;
             transition: all 0.4s ease;
-            pointer-events: none;
+            opacity: 0;
+            transform: translateY(8px);
+            font-family: 'Tajawal', sans-serif;
+            text-align: right;
             direction: rtl;
         }
 
-        .bebo-bubble.active {
-            opacity: 1;
-            transform: translateX(0);
-        }
+        .bebo-bubble.active { opacity: 1; transform: translateY(0); }
 
-        .controls-group {
+        .bebo-robot {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(145deg, #2a3445, #0d121a);
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.15);
             display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 10px;
+            align-items: center;
+            justify-content: center;
         }
 
-        .context-label {
-            display: inline-flex;
+        .eyes-container { display: flex; gap: 8px; }
+        .eye { width: 8px; height: 8px; background: var(--bebo-purple); border-radius: 50%; box-shadow: 0 0 8px var(--bebo-purple); }
+        .bebo-robot.success .eye { background: var(--bebo-green); height: 4px; border-radius: 4px 4px 0 0; }
+        .bebo-robot.error .eye { background: var(--accent-red); height: 3px; border-radius: 2px; transform: rotate(-15deg); }
+
+        /* --- Compact Card Design --- */
+        .card {
+            background: var(--bg-card);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-subtle);
+            padding: 1.2rem 1rem; /* Ultra compact padding */
+            border-radius: 16px;
+            position: relative;
+            box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.9);
+            overflow: hidden;
+        }
+
+        .progress-tracker {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .progress-fill {
+            height: 100%; width: 0%;
+            background: linear-gradient(90deg, var(--accent-red), #ff7e7e);
+            box-shadow: 0 0 10px var(--accent-red);
+            transition: width 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 6px;
+            margin-bottom: 0.8rem;
+        }
+
+        .meta-info {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.8rem;
             color: var(--accent-red);
-            font-size: 0.65rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 5px 10px;
-            background: rgba(230, 57, 70, 0.1);
-            border-radius: 2px;
+            letter-spacing: 3px;
         }
 
         .hint-toggle {
-            background: none;
-            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-subtle);
             color: var(--text-dim);
-            font-size: 0.65rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 6px 12px;
-            cursor: pointer;
-            border-radius: 2px;
-            transition: var(--transition);
-        }
-
-        .hint-toggle:hover { border-color: var(--text-dim); color: white; }
-
-        .hint-box {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-out, margin 0.3s ease, padding 0.3s ease;
-            background: #0f0f0f;
-            border-left: 2px solid var(--accent-red);
-        }
-
-        .hint-box.visible {
-            max-height: 200px;
-            margin-bottom: 1.5rem;
-            padding: 1.2rem;
-            overflow-y: auto;
-        }
-
-        .hint-content { color: var(--text-dim); font-size: 0.85rem; line-height: 1.6; }
-
-        .meta-info { font-size: 0.75rem; color: var(--text-dim); margin-bottom: 1rem; font-weight: 600; letter-spacing: 1px; }
-
-        .question-body { font-size: 1.25rem; font-weight: 600; line-height: 1.5; margin-bottom: 2.5rem; color: #fff; }
-
-        .response-grid { display: grid; gap: 12px; margin-bottom: 2rem; }
-        .response-grid.dual { grid-template-columns: 1fr 1fr; }
-
-        .option-btn {
-            background: var(--surface-bg);
-            border: 1px solid var(--border);
-            color: var(--text-dim);
-            padding: 1.1rem 1.4rem;
-            text-align: left;
-            font-size: 0.95rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border-radius: 4px;
-            width: 100%;
-        }
-
-        .option-btn span {
-            flex-shrink: 0;
-            width: 24px;
-            height: 24px;
+            width: 34px; height: 34px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .hint-display {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+        }
+
+        .hint-display.active {
+            max-height: 200px;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border-left: 3px solid var(--accent-red);
+        }
+
+        /* --- Question Area: Scaled Down --- */
+        .question-body {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 1.2rem;
+        }
+
+        .q-ar-box {
+            background: rgba(255, 62, 62, 0.03);
+            border: 1px solid rgba(255, 62, 62, 0.08);
+            border-left: 3px solid var(--accent-red);
+            padding: 0.6rem 0.8rem;
+            border-radius: 4px 10px 10px 4px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            direction: rtl;
+            text-align: right;
+        }
+
+        .q-en-main {
+            font-size: 1.1rem; /* More compact English text */
+            font-weight: 600;
+            line-height: 1.35;
+            color: #fff;
+        }
+
+        /* --- Options: Tighter Layout --- */
+        .options-grid {
+            display: grid;
+            gap: 8px;
+            margin-bottom: 1.2rem;
+        }
+
+        .options-grid.two-cols { grid-template-columns: 1fr 1fr; }
+
+        .option-btn {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-dim);
+            padding: 0.65rem 0.85rem;
+            text-align: left;
+            font-size: 0.85rem;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .option-btn .char-idx {
+            background: rgba(255, 255, 255, 0.08);
             color: var(--accent-red);
-            background: rgba(230, 57, 70, 0.1);
-            border-radius: 2px;
-            font-size: 0.75rem;
+            width: 24px; height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            font-weight: 700;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.8rem;
         }
 
         .option-btn:hover:not(:disabled) {
-            border-color: var(--accent-red);
+            border-color: rgba(255, 255, 255, 0.3);
             color: #fff;
-            background: #252525;
             transform: translateX(4px);
         }
 
-        .option-btn.correct { background: rgba(16, 185, 129, 0.1) !important; border-color: var(--success) !important; color: var(--success) !important; }
-        .option-btn.wrong { background: rgba(239, 68, 68, 0.1) !important; border-color: var(--error) !important; color: var(--error) !important; }
+        .option-btn.correct { background: rgba(34, 197, 94, 0.15) !important; border-color: var(--bebo-green) !important; color: #fff !important; }
+        .option-btn.wrong { background: rgba(255, 62, 62, 0.15) !important; border-color: var(--accent-red) !important; color: #fff !important; }
 
-        .navigation-row { display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
-        .nav-link { background: none; border: none; color: var(--text-dim); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: var(--transition); }
-        .nav-link:hover { color: white; }
-
-        .action-btn { background: var(--accent-red); color: #fff; border: none; padding: 0.8rem 1.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: var(--transition); border-radius: 4px; font-size: 0.8rem; }
-        .action-btn:hover { background: #f84d5b; box-shadow: 0 0 20px rgba(230, 57, 70, 0.3); }
-        .action-btn:disabled { background: #333; cursor: not-allowed; opacity: 0.5; }
-
-        .clear-link { display: block; text-align: center; margin-top: 2rem; color: #444; font-size: 0.7rem; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: color 0.2s; }
-        .clear-link:hover { color: var(--text-dim); }
-
-        .results-panel { text-align: center; padding: 4rem 2rem; }
-        .score-display { font-size: 4rem; font-weight: 800; color: var(--accent-red); margin: 0.5rem 0; }
-        .score-sub { color: var(--text-dim); margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; }
-        
-        /* Personalized Result Message */
-        .bebo-final-message {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px dashed var(--border);
-            padding: 1.5rem;
-            border-radius: 8px;
-            color: #fff;
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 2.5rem;
-            direction: rtl;
+        /* --- Footer Nav --- */
+        .footer-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--border-subtle);
         }
 
-        footer { background: #000; padding: 2rem; text-align: center; color: #444; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; border-top: 1px solid #1a1a1a; }
-        .hidden { display: none; }
-        svg { width: 18px; height: 18px; fill: currentColor; }
+        .nav-actions-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            letter-spacing: 2px;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .btn-nav:disabled { opacity: 0; }
+
+        .btn-primary {
+            background: var(--accent-red);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 7px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        /* --- Results View --- */
+        .results-view { text-align: center; }
+        .final-pct { font-size: 4rem; font-weight: 700; color: var(--accent-red); font-family: 'Rajdhani', sans-serif; }
+        .feedback-container {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            direction: rtl;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        footer {
+            background: rgba(2, 2, 4, 0.98);
+            padding: 3rem 1rem;
+            text-align: center;
+            color: #555;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            border-top: 1px solid #111;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .hidden { display: none !important; }
 
         @media (max-width: 600px) {
-            .ui-top-row { flex-direction: column; align-items: flex-start; }
-            .bebo-integration { width: 100%; }
-            .bebo-bubble { max-width: none; flex: 1; }
-            .controls-group { width: 100%; flex-direction: row; justify-content: space-between; align-items: center; }
-            .response-grid.dual { grid-template-columns: 1fr; }
-            .card { padding: 1.5rem; }
+            .options-grid.two-cols { grid-template-columns: 1fr; }
+            .card { padding: 1rem 0.85rem; }
+            .q-en-main { font-size: 0.95rem; }
+            .bebo-bubble { max-width: 280px; font-size: 0.75rem; }
+            .footer-nav { flex-direction: column-reverse; gap: 12px; align-items: stretch; }
+            .nav-actions-right { justify-content: space-between; }
+            .btn-primary { width: 100%; text-align: center; padding: 7px 16px; }
+            header { height: 50px; }
+            header h1 { font-size: 1.1rem; letter-spacing: 4px; }
+        }
+        
+        @media (max-width: 480px) {
+            .assessment-container { max-width: 100%; }
+            .card { padding: 0.9rem 0.75rem; border-radius: 14px; }
+            .q-en-main { font-size: 0.9rem; }
+            .option-btn { padding: 0.55rem 0.7rem; font-size: 0.8rem; gap: 8px; }
+            .bebo-wrapper { margin-bottom: 0.6rem; }
+            .bebo-robot { width: 42px; height: 42px; border-radius: 12px; }
+            header h1 { font-size: 1rem; }
+            .meta-info { font-size: 0.7rem; letter-spacing: 2px; }
+            .btn-nav { font-size: 0.7rem; }
+            .q-ar-box { font-size: 0.8rem; padding: 0.5rem 0.7rem; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Rolling<span>Stock</span></h1>
+        <div class="header-line"></div>
+        <h1>ROLLING<span>STOCK</span></h1>
     </header>
 
     <main class="viewport">
         <div class="assessment-container">
+            
+            <div class="bebo-wrapper">
+                <div class="bebo-bubble" id="bebo-bubble">جاري تهيئة الأنظمة...</div>
+                <div class="bebo-robot" id="bebo-robot">
+                    <div class="eyes-container">
+                        <div class="eye"></div>
+                        <div class="eye"></div>
+                    </div>
+                </div>
+            </div>
+
             <div id="quiz-ui">
-                <div class="card" id="main-card">
-                    <div class="progress-container">
-                        <div class="progress-bar" id="progress-bar"></div>
+                <div class="card">
+                    <div class="progress-tracker">
+                        <div class="progress-fill" id="progress-bar"></div>
                     </div>
 
-                    <div class="ui-top-row">
-                        <div class="bebo-integration">
-                            <div class="bebo-visual" id="bebo-visual">
-                                <div class="bebo-eye"></div>
-                                <div class="bebo-eye"></div>
-                            </div>
-                            <div class="bebo-bubble" id="bebo-bubble">...</div>
-                        </div>
-                        <div class="controls-group">
-                            <div class="context-label">
-                                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-                                Technical Context
-                            </div>
-                            <button class="hint-toggle" onclick="toggleHint()">Reference Hint</button>
-                        </div>
-                    </div>
-
-                    <div id="hint-box" class="hint-box">
-                        <div class="hint-content" id="hint-text">...</div>
-                    </div>
-                    
-                    <div class="meta-info">Section <span id="current-index">01</span> / <span id="total-questions">00</span></div>
-                    <div class="question-body" id="question-content">...</div>
-
-                    <div id="options-container" class="response-grid"></div>
-
-                    <div class="navigation-row">
-                        <button class="nav-link" id="prev-btn" onclick="goPrev()">
-                            <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
-                            Previous
+                    <div class="card-header">
+                        <div class="meta-info">POINT <span id="current-idx">01</span> / <span id="total-idx">00</span></div>
+                        <button class="hint-toggle" onclick="toggleHint()" title="Reveal Intel">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3m.08 4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
                         </button>
-                        <button class="action-btn" id="next-btn" onclick="goNext()" disabled>Next Question</button>
                     </div>
 
-                    <a class="clear-link" onclick="clearAnswer()">Reset Current Selection</a>
+                    <div class="hint-display" id="hint-panel">
+                        <div id="hint-text"></div>
+                    </div>
+
+                    <div class="question-body" id="question-text"></div>
+
+                    <div id="options-container" class="options-grid"></div>
+
+                    <div class="footer-nav">
+                        <button class="btn-nav" id="btn-prev" onclick="move(-1)">BACK</button>
+                        <div class="nav-actions-right">
+                            <button class="btn-nav" id="btn-skip" onclick="move(1)">SKIP</button>
+                            <button class="btn-primary" id="btn-next" onclick="move(1)" disabled>NEXT</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div id="results-ui" class="hidden">
-                <div class="card results-panel">
-                    <div class="context-label">Assessment Finalized</div>
-                    <div class="score-display" id="final-percentage">0%</div>
-                    <div class="score-sub" id="final-raw">0 / 0 Correct Responses</div>
-                    <div class="bebo-final-message" id="final-bebo-message">...</div>
-                    <button class="action-btn" style="width: 100%" onclick="location.reload()">Restart Technical Assessment</button>
+                <div class="card results-view">
+                    <div class="meta-info">ANALYSIS COMPLETE</div>
+                    <div class="final-pct" id="final-pct">0%</div>
+                    <div class="feedback-container" id="final-feedback">...</div>
+                    <button class="btn-primary" style="width: 100%" onclick="location.reload()">RESTART ASSESSMENT</button>
                 </div>
             </div>
+
         </div>
     </main>
 
-    <footer>Professional Technical Assessment Framework &copy; 2026</footer>
+    <footer>Development Bilal Mohamed</footer>
 
     <script>
         const quizData = [
-            { type: "tf", q: "Modern railway systems aim to provide safe and comfortable transportation.", a: true, h: "Safety and comfort are core objectives in railway design and operation." },
-            { type: "tf", q: "HVAC systems improve air quality inside railway coaches.", a: true, h: "HVAC systems filter and circulate air to maintain quality in enclosed spaces." },
-            { type: "tf", q: "The evaporator coil releases heat to the outside air.", a: false, h: "The evaporator absorbs heat from inside; the condenser releases it outside." },
-            { type: "tf", q: "Escalators help improve passenger flow in railway stations.", a: true, h: "Escalators facilitate vertical movement and improve station throughput." },
-            { type: "tf", q: "The electric drive provides power to move escalator steps.", a: true, h: "Electric motors drive the chain mechanism that moves the steps." },
-            { type: "tf", q: "Auxiliary systems are not necessary for train operation.", a: false, h: "Auxiliary systems like batteries and generators support essential functions." },
-            { type: "tf", q: "Compressed air systems are used to operate train brakes.", a: true, h: "Air brakes rely on compressed air for actuation and control." },
-            { type: "tf", q: "The air compressor produces compressed air in locomotives.", a: true, h: "Compressors generate the high-pressure air needed for braking systems." },
-            { type: "tf", q: "The main reservoir stores compressed air.", a: true, h: "Reservoirs store compressed air for use in braking and other systems." },
-            { type: "tf", q: "Comfort and safety systems work together in modern railway engineering.", a: true, h: "Integrated systems ensure both passenger comfort and operational safety." },
-            { type: "mcq", q: "HVAC stands for:", options: ["Heat Valve Air Control", "Heating Ventilation and Air Conditioning", "High Voltage Air Control", "Heat Variation Air Cooling"], a: 1, h: "HVAC is the standard acronym for climate control systems." },
-            { type: "mcq", q: "The main purpose of HVAC systems in railway coaches is to:", options: ["Increase train speed", "Maintain comfortable temperature and air quality", "Reduce train weight", "Control train brakes"], a: 1, h: "HVAC primarily focuses on passenger comfort through temperature and air management." },
-            { type: "mcq", q: "Which component compresses refrigerant gas in the HVAC system?", options: ["Evaporator", "Compressor", "Condenser", "Air filter"], a: 1, h: "The compressor increases refrigerant pressure in the cooling cycle." },
-            { type: "mcq", q: "Which component releases heat to the outside air?", options: ["Condenser coil", "Evaporator coil", "Air filter", "Blower fan"], a: 0, h: "The condenser dissipates heat from the refrigerant to the environment." },
-            { type: "mcq", q: "Escalators in railway stations are mainly used to:", options: ["Increase train power", "Transport passengers between levels", "Control railway signals", "Operate train doors"], a: 1, h: "Escalators provide vertical transportation in multi-level stations." },
-            { type: "mcq", q: "Which of the following is an escalator component?", options: ["Step chain", "Gear reduction", "Electric drive", "All of the above"], a: 3, h: "Escalators consist of multiple mechanical components working together." },
-            { type: "mcq", q: "Auxiliary systems in trains include:", options: ["Batteries", "Generators", "Compressed air systems", "All of the above"], a: 3, h: "Auxiliary systems provide backup power and support functions." },
-            { type: "mcq", q: "Which system is mainly responsible for operating train air brakes?", options: ["Hydraulic system", "Compressed air system", "Cooling system", "Fuel system"], a: 1, h: "Air brakes use compressed air to apply braking force." },
-            { type: "mcq", q: "The air dryer in a compressed air system is used to:", options: ["Increase air pressure", "Remove moisture from compressed air", "Cool the locomotive engine", "Generate electricity"], a: 1, h: "Dryers prevent water accumulation that could cause system failures." },
-            { type: "mcq", q: "Alternators in trains are used to:", options: ["Generate AC electrical power", "Control escalators", "Reduce train speed", "Compress air"], a: 0, h: "Alternators convert mechanical energy to electrical power." },
-            { type: "mcq", q: "What is the primary function of a train coupler?", options: ["Passenger comfort", "Coach decoration", "Connecting coaches and transmitting forces", "Noise insulation"], a: 2, h: "Rolling stock requires a mechanical link to transmit traction and braking forces along the train." },
-            { type: "mcq", q: "Which coupler is considered obsolete due to safety risks?", options: ["Buckeye", "Screw coupling", "Bar coupler", "Link-and-Pin"], a: 3, h: "This 19th-century system caused many fatalities as staff had to stand between cars to insert pins." },
-            { type: "mcq", q: "Which coupler is mainly used in fixed-formation trainsets?", options: ["Screw coupling", "Bar coupler", "Buckeye coupler", "Scharfenberg coupler"], a: 1, h: "A semi-permanent bar is used when coaches are rarely detached, common in EMUs/DMUs." },
-            { type: "mcq", q: "The Screw Coupling relies on which additional component to absorb shock?", options: ["Knuckle", "Air springs", "Side buffers", "Gear box"], a: 2, h: "Side buffers handle the compression forces, while the screw coupling handles the tension." },
-            { type: "mcq", q: "Which coupler integrates mechanical, pneumatic, and electrical connections automatically?", options: ["Buckeye", "Bar coupler", "Screw coupling", "Scharfenberg"], a: 3, h: "A high-tech coupler that automatically connects air and signal lines simultaneously." },
-            { type: "mcq", q: "Which coupler is standard for heavy-haul freight (knuckle shape)?", options: ["Screw coupling", "Buckeye (Janney/Knuckle) coupler", "Bar coupler", "Link-and-Pin"], a: 1, h: "The knuckle design is robust enough for extremely heavy freight trains." },
-            { type: "mcq", q: "Which door type is considered a major safety risk?", options: ["Plug doors", "Sliding pocket doors", "Slam doors", "External sliding doors"], a: 2, h: "These manually latched doors could swing open during motion and were phased out for safety." },
-            { type: "mcq", q: "Which door type provides the best acoustic insulation?", options: ["Slam doors", "Bi-folding doors", "Plug doors", "Sliding pocket doors"], a: 2, h: "The plug mechanism pushes the door against the frame, creating a superior airtight seal." },
-            { type: "mcq", q: "Why are sliding pocket doors used in metro systems?", options: ["Cheaper production", "Reduced maintenance", "Maximize interior space", "Improved aerodynamics"], a: 2, h: "Recessing into the walls prevents them from obstructing the aisle or the platform space." },
-            { type: "mcq", q: "Which door system is easiest to maintain?", options: ["Plug doors", "External sliding doors", "Bi-folding doors", "Slam doors"], a: 1, h: "External tracks are simple to access and clean compared to internal mechanisms." },
-            { type: "mcq", q: "In a split air-conditioned coach, the 'evaporator' is responsible for:", options: ["Compressing refrigerant", "Cooling the air before cabin entry", "Releasing heat outside", "Heating the cabin"], a: 1, h: "Heat from the cabin air is absorbed into the refrigerant at the evaporator stage." },
-            { type: "mcq", q: "In a coach heating system, 'convection heaters' are usually located:", options: ["On the ceiling", "Inside luggage racks", "Near the floor side walls", "In toilet compartments"], a: 2, h: "Natural convection relies on hot air rising, necessitating floor-level placement." },
-            { type: "tf", q: "The Link-and-Pin coupler requires automatic operation.", a: false, h: "It is a manual system that required workers to stand between vehicles." },
-            { type: "tf", q: "Bar couplers are suitable for trains that frequently change coach numbers.", a: false, h: "Bar couplers are semi-permanent and difficult to decouple quickly." },
-            { type: "tf", q: "Screw couplings are common in Europe and the Middle East.", a: true, h: "This is the traditional standard across many continental rail systems." },
-            { type: "tf", q: "Buckeye couplers eliminate the need for workers to stand between coaches.", a: true, h: "The automatic knuckle mechanism engages upon impact." },
-            { type: "tf", q: "Scharfenberg couplers allow slack between connected coaches.", a: false, h: "They provide a tight, rigid connection to protect air and electrical links." },
-            { type: "tf", q: "Slam doors can be safely opened while the train is moving.", a: false, h: "This practice is extremely dangerous and prohibited in modern operations." },
-            { type: "tf", q: "Bi-folding doors require frequent maintenance due to multiple moving parts.", a: true, h: "More hinges and pivots increase the likelihood of mechanical failure." },
-            { type: "tf", q: "Plug doors sit flush with the train body to reduce aerodynamic drag.", a: true, h: "This feature is vital for energy efficiency and noise reduction." },
-            { type: "tf", q: "External sliding doors are commonly used in metro systems.", a: true, h: "They provide reliable, fast operation for high-frequency urban transit." },
-            { type: "tf", q: "Modern railway engineering focuses on safety, efficiency, and passenger comfort.", a: true, h: "These represent the fundamental engineering requirements of modern rolling stock." },
-            { type: "tf", q: "In a 'Screw Coupler' arrangement, the drawbar absorbs pushing forces.", a: false, h: "Drawbars pull (tension); side buffers absorb the push (compression)." },
-            { type: "tf", q: "In a split AC coach, the 'evaporator' releases heat to the environment.", a: false, h: "The condenser releases heat; the evaporator absorbs it from the cabin." },
-            { type: "tf", q: "In a heating system, convection heaters are usually located near the ceiling.", a: false, h: "Efficiency is maximized at floor level to allow heat to rise naturally." }
+            { type: "tf", q_en: "Modern railway systems aim to provide safe and comfortable transportation.", q_ar: "تهدف أنظمة السكك الحديدية الحديثة إلى توفير نقل آمن ومريح.", a: true, h_en: "Safety and comfort are core objectives.", h_ar: "السلامة والراحة هما الأهداف الأساسية في التصميم." },
+            { type: "tf", q_en: "HVAC systems improve air quality inside railway coaches.", q_ar: "تعمل أنظمة التكييف (HVAC) على تحسين جودة الهواء داخل العربات.", a: true, h_en: "HVAC filters and circulates air.", h_ar: "تقوم أنظمة التكييف بفلترة وتدوير الهواء." },
+            { type: "tf", q_en: "The evaporator coil releases heat to the outside air.", q_ar: "ملف المبخر يقوم بطرد الحرارة إلى الهواء الخارجي.", a: false, h_en: "Condenser releases heat, Evaporator absorbs it.", h_ar: "المكثف يطرد الحرارة والمبخر يمتصها." },
+            { type: "tf", q_en: "Escalators help improve passenger flow in railway stations.", q_ar: "تساعد السلالم المتحركة في تحسين تدفق الركاب بالمحطات.", a: true, h_en: "Escalators facilitate vertical movement.", h_ar: "تسهل السلالم المتحركة الحركة الرأسية." },
+            { type: "tf", q_en: "The electric drive provides power to move escalator steps.", q_ar: "يوفر المحرك الكهربائي الطاقة لتحريك درجات السلم.", a: true, h_en: "Motors drive the chain mechanism.", h_ar: "تقوم المحركات بتشغيل آلية السلسلة." },
+            { type: "tf", q_en: "Auxiliary systems are not necessary for train operation.", q_ar: "الأنظمة المساعدة ليست ضرورية لتشغيل القطار.", a: false, h_en: "Auxiliary systems support essential functions.", h_ar: "الأنظمة المساعدة تدعم الوظائف الحيوية." },
+            { type: "tf", q_en: "Compressed air systems are used to operate train brakes.", q_ar: "تُستخدم أنظمة الهواء المضغوط لتشغيل مكابح القطار.", a: true, h_en: "Air brakes rely on high pressure.", h_ar: "تعتمد الفرامل على الهواء المضغوط." },
+            { type: "tf", q_en: "The air compressor produces compressed air in locomotives.", q_ar: "يقوم ضاغط الهواء بإنتاج الهواء المضغوط في القاطرات.", a: true, h_en: "Compressors generate needed pressure.", h_ar: "الضواغط تولد الضغط اللازم للكبح." },
+            { type: "tf", q_en: "The main reservoir stores compressed air.", q_ar: "يقوم الخزان الرئيسي بتخزين الهواء المضغوط.", a: true, h_en: "Reservoirs store air for various systems.", h_ar: "الخزانات تخزن الهواء للاستخدام في الكبح." },
+            { type: "tf", q_en: "Comfort and safety systems work together in modern railway engineering.", q_ar: "تعمل أنظمة الراحة والسلامة معاً في هندسة السكك الحديدية الحديثة.", a: true, h_en: "Integrated systems ensure both.", h_ar: "تضمن الأنظمة المتكاملة الراحة والسلامة معاً." },
+            { type: "mcq", q_en: "HVAC stands for:", q_ar: "يرمز اختصار HVAC إلى:", options: ["Heat Valve Air Control", "Heating Ventilation and Air Conditioning", "High Voltage Air Control", "Heat Variation Air Cooling"], a: 1, h_en: "Climate control acronym.", h_ar: "هو اختصار أنظمة التدفئة والتهوية والتكييف." },
+            { type: "mcq", q_en: "The main purpose of HVAC systems in railway coaches is to:", q_ar: "الغرض الأساسي من أنظمة HVAC في عربات القطار هو:", options: ["Increase train speed", "Maintain comfortable temperature and air quality", "Reduce train weight", "Control train brakes"], a: 1, h_en: "Temperature and air management.", h_ar: "إدارة الحرارة والهواء لراحة الركاب." },
+            { type: "mcq", q_en: "Which component compresses refrigerant gas in the HVAC system?", q_ar: "أي مكون يقوم بضغط غاز التبريد في نظام HVAC؟", options: ["Evaporator", "Compressor", "Condenser", "Air filter"], a: 1, h_en: "Compressor raises pressure.", h_ar: "الضاغط يرفع ضغط مادة التبريد." },
+            { type: "mcq", q_en: "Which component releases heat to the outside air?", q_ar: "أي مكون يقوم بطرد الحرارة إلى الهواء الخارجي؟", options: ["Condenser coil", "Evaporator coil", "Air filter", "Blower fan"], a: 0, h_en: "Condenser dissipates heat.", h_ar: "المكثف يطرد الحرارة للبيئة الخارجية." },
+            { type: "mcq", q_en: "Escalators in railway stations are mainly used to:", q_ar: "تُستخدم السلالم المتحركة في المحطات لـ:", options: ["Increase train power", "Transport passengers between levels", "Control railway signals", "Operate train doors"], a: 1, h_en: "Vertical transportation.", h_ar: "توفير وسيلة نقل رأسية سهلة." },
+            { type: "mcq", q_en: "Which of the following is an escalator component?", q_ar: "أي مما يلي يعد من مكونات السلم المتحرك؟", options: ["Step chain", "Gear reduction", "Electric drive", "All of the above"], a: 3, h_en: "Multiple mechanical parts.", h_ar: "جميع الخيارات من المكونات الأساسية." },
+            { type: "mcq", q_en: "Auxiliary systems in trains include:", q_ar: "تشمل الأنظمة المساعدة في القطارات:", options: ["Batteries", "Generators", "Compressed air systems", "All of the above"], a: 3, h_en: "Support functions.", h_ar: "تشمل البطاريات والمولدات وأنظمة الهواء." },
+            { type: "mcq", q_en: "Which system is mainly responsible for operating train air brakes?", q_ar: "أي نظام مسؤول عن تشغيل المكابح الهوائية؟", options: ["Hydraulic system", "Compressed air system", "Cooling system", "Fuel system"], a: 1, h_en: "Air brake actuation.", h_ar: "يعتمد نظام الكبح على الهواء المضغوط." },
+            { type: "mcq", q_en: "The air dryer in a compressed air system is used to:", q_ar: "يُستخدم مجفف الهواء في نظام الهواء لـ:", options: ["Increase air pressure", "Remove moisture from compressed air", "Cool the locomotive engine", "Generate electricity"], a: 1, h_en: "Prevents water accumulation.", h_ar: "يمنع الرطوبة التي تسبب أعطالاً." },
+            { type: "mcq", q_en: "Alternators in trains are used to:", q_ar: "تُستخدم المولدات (Alternators) لـ:", options: ["Generate AC electrical power", "Control escalators", "Reduce train speed", "Compress air"], a: 0, h_en: "AC power generation.", h_ar: "تحويل الطاقة الميكانيكية لكهربائية." },
+            { type: "mcq", q_en: "What is the primary function of a train coupler?", q_ar: "ما هي الوظيفة الأساسية لوصلة القطار؟", options: ["Passenger comfort", "Coach decoration", "Connecting coaches and transmitting forces", "Noise insulation"], a: 2, h_en: "Mechanical force transmission.", h_ar: "ربط العربات ونقل قوى الجر والكبح." },
+            { type: "mcq", q_en: "Which coupler is considered obsolete due to safety risks?", q_ar: "أي وصلة تعتبر قديمة بسبب مخاطر السلامة؟", options: ["Buckeye", "Screw coupling", "Bar coupler", "Link-and-Pin"], a: 3, h_en: "19th-century system.", h_ar: "نظام قديم وخطير جداً على العمال." },
+            { type: "mcq", q_en: "Which coupler is mainly used in fixed-formation trainsets?", q_ar: "أي وصلة تُستخدم في المجموعات الثابتة؟", options: ["Screw coupling", "Bar coupler", "Buckeye coupler", "Scharfenberg coupler"], a: 1, h_en: "Semi-permanent bar.", h_ar: "الوصل القضيبي للعربات التي نادراً ما تنفصل." },
+            { type: "mcq", q_en: "The Screw Coupling relies on which additional component to absorb shock?", q_ar: "تعتمد الوصلة اللولبية على أي مكون لامتصاص الصدمات؟", options: ["Knuckle", "Air springs", "Side buffers", "Gear box"], a: 2, h_en: "Compression force handling.", h_ar: "المخمدات الجانبية تمتص قوى الضغط." },
+            { type: "mcq", q_en: "Which coupler integrates mechanical, pneumatic, and electrical connections automatically?", q_ar: "أي وصلة تدمج كافة التوصيلات تلقائياً؟", options: ["Buckeye", "Bar coupler", "Screw coupling", "Scharfenberg"], a: 3, h_en: "High-tech automation.", h_ar: "وصل متطور وشامل لكافة الأنظمة." },
+            { type: "mcq", q_en: "Which coupler is standard for heavy-haul freight (knuckle shape)?", q_ar: "أي وصلة هي المعيار للشحن الثقيل؟", options: ["Screw coupling", "Buckeye (Janney/Knuckle) coupler", "Bar coupler", "Link-and-Pin"], a: 1, h_en: "Robust knuckle design.", h_ar: "تصميم Buckeye القوي جداً للشحن." },
+            { type: "mcq", q_en: "Which door type is considered a major safety risk?", q_ar: "أي نوع من الأبواب يعتبر خطراً كبيراً؟", options: ["Plug doors", "Sliding pocket doors", "Slam doors", "External sliding doors"], a: 2, h_en: "Manual risk factors.", h_ar: "الأبواب اليدوية Slam doors خطيرة جداً." },
+            { type: "mcq", q_en: "Which door type provides the best acoustic insulation?", q_ar: "أي نوع يوفر أفضل عزل صوتي؟", options: ["Slam doors", "Bi-folding doors", "Plug doors", "Sliding pocket doors"], a: 2, h_en: "Airtight plug mechanism.", h_ar: "آلية الضغط في Plug doors توفر عزلاً ممتازاً." },
+            { type: "mcq", q_en: "Why are sliding pocket doors used in metro systems?", q_ar: "لماذا تُستخدم الأبواب المنزلقة الجيبية بالمترو؟", options: ["Cheaper production", "Reduced maintenance", "Maximize interior space", "Improved aerodynamics"], a: 2, h_en: "Recessed space saving.", h_ar: "لتوفير المساحة وعدم إعاقة الركاب." },
+            { type: "mcq", q_en: "Which door system is easiest to maintain?", q_ar: "أي نظام أبواب هو الأسهل في الصيانة؟", options: ["Plug doors", "External sliding doors", "Bi-folding doors", "Slam doors"], a: 1, h_en: "Simple external access.", h_ar: "المسارات الخارجية سهلة التنظيف والصيانة." },
+            { type: "mcq", q_en: "In a split air-conditioned coach, the 'evaporator' is responsible for:", q_ar: "في العربة المكيفة، يكون 'المبخر' مسؤولاً عن:", options: ["Compressing refrigerant", "Cooling the air before cabin entry", "Releasing heat outside", "Heating the cabin"], a: 1, h_en: "Absorption of heat.", h_ar: "تبريد الهواء قبل دخوله للعربة." },
+            { type: "mcq", q_en: "In a coach heating system, 'convection heaters' are usually located:", q_ar: "سخانات الحمل الحراري توجد عادةً في:", options: ["On the ceiling", "Inside luggage racks", "Near the floor side walls", "In toilet compartments"], a: 2, h_en: "Floor level placement.", h_ar: "توضع قرب الأرضية للسماح للهواء الساخن بالارتفاع." },
+            { type: "tf", q_en: "The Link-and-Pin coupler requires automatic operation.", q_ar: "تتطلب وصلة Link-and-Pin تشغيلاً تلقائياً.", a: false, h_en: "Manual and dangerous.", h_ar: "كانت يدوية وخطيرة جداً على العمال." },
+            { type: "tf", q_en: "Bar couplers are suitable for trains that frequently change coach numbers.", q_ar: "الوصلات القضيبية مناسبة للقطارات متغيرة العربات.", a: false, h_en: "Semi-permanent connection.", h_ar: "هي وصلات شبه دائمة ويصعب فكها." },
+            { type: "tf", q_en: "Screw couplings are common in Europe and the Middle East.", q_ar: "الوصلات اللولبية شائعة في أوروبا والشرق الأوسط.", a: true, h_en: "Standard continental rail.", h_ar: "هي المعيار التقليدي في السكك القارية." },
+            { type: "tf", q_en: "Buckeye couplers eliminate the need for workers to stand between coaches.", q_ar: "تلغي Buckeye حاجة العمال للوقوف بين العربات.", a: true, h_en: "Impact automation.", h_ar: "تسمح بالارتباط التلقائي عند التصادم." },
+            { type: "tf", q_en: "Scharfenberg couplers allow slack between connected coaches.", q_ar: "تسمح وصلات Scharfenberg بوجود ارتخاء.", a: false, h_en: "Rigid, protective link.", h_ar: "توفر وصلاً صلباً لحماية الأنظمة الدقيقة." },
+            { type: "tf", q_en: "Slam doors can be safely opened while the train is moving.", q_ar: "يمكن فتح Slam doors بأمان أثناء الحركة.", a: false, h_en: "Prohibited practice.", h_ar: "خطر جداً وممنوع تماماً في التشغيل الحديث." },
+            { type: "tf", q_en: "Bi-folding doors require frequent maintenance due to multiple moving parts.", q_ar: "تتطلب الأبواب ثنائية الطي صيانة مستمرة.", a: true, h_en: "Pivot point wear.", h_ar: "كثرة المفاصل تزيد من احتمالية الأعطال." },
+            { type: "tf", q_en: "Plug doors sit flush with the train body to reduce aerodynamic drag.", q_ar: "توضع Plug doors بمستوى الجسم لتقليل مقاومة الهواء.", a: true, h_en: "Aero-efficiency focus.", h_ar: "حيوية لتقليل الضوضاء ومقاومة الهواء." },
+            { type: "tf", q_en: "External sliding doors are commonly used in metro systems.", q_ar: "تُستخدم الأبواب المنزلقة الخارجية بكثرة بالمترو.", a: true, h_en: "High-frequency reliability.", h_ar: "توفر تشغيلاً سريعاً وموثوقاً للنقل الحضري." },
+            { type: "tf", q_en: "Modern railway engineering focuses on safety, efficiency, and passenger comfort.", q_ar: "تركز الهندسة الحديثة على السلامة والكفاءة والراحة.", a: true, h_en: "Core engineering goals.", h_ar: "تمثل المتطلبات الأساسية للنظم الحديثة." },
+            { type: "tf", q_en: "In a 'Screw Coupler' arrangement, the drawbar absorbs pushing forces.", q_ar: "في الوصلة اللولبية، يمتص قضيب الشد قوى الدفع.", a: false, h_en: "Buffers handle push.", h_ar: "المخمدات هي من تمتص قوى الضغط (الدفع)." },
+            { type: "tf", q_en: "In a split AC coach, the 'evaporator' releases heat to the environment.", q_ar: "المبخر في التكييف يطرد الحرارة للبيئة المحيطة.", a: false, h_en: "Condenser releases heat.", h_ar: "المكثف هو من يطرد الحرارة للخارج." },
+            { type: "tf", q_en: "In a heating system, convection heaters are usually located near the ceiling.", q_ar: "توضع سخانات الحمل عادةً قرب السقف.", a: false, h_en: "Floor level efficiency.", h_ar: "يجب وضعها قرب الأرض ليرتفع الهواء الساخن." }
         ];
 
-        let currentIndex = 0;
+        let index = 0;
         let userAnswers = new Array(quizData.length).fill(null);
-        let consecutiveMistakes = 0;
-        let startTime = Date.now();
 
         const beboMessages = {
-            intro: ["منور يا نجم النجوم جاهز؟", "حمدلله على السلامه يانجم .", "جاهز ولا لسه ؟"],
-            correct: ["الله ينور يا عم الدحيح ", "جميل اوى ده عاش ", "والعه معاك يعم ", "انت بالشكل ده تنافس على الامتياز مستريح  ", "هوهو يعم الدحيح", "ايوا يا زعيييم ", "ايوا يا دحيح", "جامد يسطا استمر "],
-            wrong: ["متركز يا عمنا ", "يعينى عليك انت مش عارف اى حاجه", "جلنف صحيح 😂", "انت محتاج تذاكر الملفات تانى", "اى يااعمي شوف التلميحات طب", "متقوم اعمل شاى يسطا بدل الضحك ده", "يبنى ركز يبنى مش هتلاقى حد يساعدك فى الامتحان ", "يعنى انا راضي ذمتك ده سؤال تغلط في"],
-            aggressive: ["خف كحك بس وانت تركز", "ركز بقى عشان كده كتير", "انا بدأت أقلق عليك", "مش مكسوف من نفسك ده سؤال تغلط في", "كل متقف معاك اديها شاى"],
-            fast: ["طب اقرا السؤال الاول طب ", "هو حد بيجرى وراك ولا اى يسطا اهدى كده", "يسطا الامتحان لسه بدرى عليه حل براحتك", "خد ثانية بس قبل ما تختار"],
-            complete: ["اخيرا خلصنا روح يعم يلا شوف ماده غيرى", "تمام كده، يلا على النتيجة", "شوف نتيجتك "],
-            
-            // New Final Score Messages
-           resultsAdvice: [
-    "نتيجتك دى يسطا ولا درجه حراره.",
-    "منت لو تبص على التلميحات وانت بتحل مكنتش جبت درجات الحراره دى.",
-    "تعي اشب شاى يسطا بالى انت عامله ده.",
-    "متزعلش مش مهم درجتك فى الامتحان المهم الصحه والستر."
-],
+            intro: ["جاري تهيئة نظام التقييم التشخيصي. جاهز للبدء."],
+            correct: [
+                "عاش يا وحش! أداء أسطوري.", "الله ينور عليك، تركيزك في السما!", "ممتاز! كمل يا بطل بنفس الحماس.",
+                "وحش! إجابة فنية مية مية.", "رائع، أنت فاهم اللعبة كويس جداً.", "برافو! إجابة أسطورية زي ما توقعت.",
+                "عاش يا دحيح، مجهودك جبار.", "تسلم إيدك، إجابة مظبوطة بالملي.", "أحسنت! فخور بيك فعلاً يا وحش."
+            ],
+            wrong: [
+                "غلط تماماً! ركز بقى عشان كدة كتير أوي!",
+                "إيه العك ده؟ فوق كدة واقرأ السؤال كويس يا هندسة!",
+                "إجابة كارثية! راجع معلوماتك فوراً كدة مينفعش!",
+                "غلط! أنت بتهزر ولا إيه؟ ركز بقى شوية!"
+            ],
+            resultsAdvice: [
+                "Your result is outstanding, not just a temperature grade.",
+                "If you had looked at the hints while answering, you wouldn't have gotten this grade.",
+                "Come on buddy, you know what you've done.",
+                "Don't be upset, your exam grade isn't important; health and well-being matter most.",
+                "Someone will make you feel like the universe is in one hand and you in the other, then they'll applaud you for the grade you got."
+            ],
             resultsSuccess: [
-                "  مش قولتلك دحيح جامد يعم اتكل على الله يلا من هنا.",
-                "المعيد القادم .",
-                "اوعي تتغر بالنتيجه دى يا صحبي ."
+                "Mashallah, well done.", "Excellent, really great job.", "Very nice result, you did even better, well done."
             ]
         };
 
-        const beboVisual = document.getElementById('bebo-visual');
-        const beboBubble = document.getElementById('bebo-bubble');
-
-        function showBeboMessage(category) {
-            const msgs = beboMessages[category];
-            const msg = msgs[Math.floor(Math.random() * msgs.length)];
-            
-            beboBubble.innerText = msg;
-            beboBubble.classList.add('active');
-            
-            beboVisual.className = "bebo-visual";
-            if (category === 'correct') beboVisual.classList.add('correct');
-            if (category === 'wrong') beboVisual.classList.add('error');
-            if (category === 'aggressive') beboVisual.classList.add('aggressive');
-            if (category === 'fast') beboVisual.classList.add('thinking');
-
-            setTimeout(() => { if(currentIndex < quizData.length) beboVisual.className = "bebo-visual"; }, 3000);
+        function setBebo(state, category, specificIdx = -1) {
+            const robot = document.getElementById('bebo-robot');
+            const bubble = document.getElementById('bebo-bubble');
+            let msgs = beboMessages[category];
+            robot.className = `bebo-robot ${state}`;
+            let chosenMsg = (category === 'correct' && specificIdx !== -1) ? (msgs[specificIdx % msgs.length]) : msgs[Math.floor(Math.random() * msgs.length)];
+            bubble.innerText = chosenMsg;
+            bubble.classList.add('active');
+            setTimeout(() => { 
+                bubble.classList.remove('active');
+                if(index < quizData.length) robot.classList.remove('success', 'error');
+            }, 3800);
         }
+
+        function toggleHint() { document.getElementById('hint-panel').classList.toggle('active'); }
 
         function init() {
-            document.getElementById('total-questions').innerText = quizData.length.toString().padStart(2, '0');
-            renderQuestion();
-            setTimeout(() => showBeboMessage('intro'), 800);
+            document.getElementById('total-idx').innerText = quizData.length.toString().padStart(2, '0');
+            render();
+            setTimeout(() => setBebo('ready', 'intro'), 500);
         }
 
-        function toggleHint() {
-            document.getElementById('hint-box').classList.toggle('visible');
-        }
-
-        function renderQuestion() {
-            const data = quizData[currentIndex];
-            document.getElementById('current-index').innerText = (currentIndex + 1).toString().padStart(2, '0');
-            document.getElementById('question-content').innerText = data.q;
-            document.getElementById('hint-text').innerText = data.h;
-            document.getElementById('hint-box').classList.remove('visible');
+        function render() {
+            const data = quizData[index];
+            document.getElementById('current-idx').innerText = (index + 1).toString().padStart(2, '0');
             
-            updateProgressBar();
-            startTime = Date.now();
-
-            const optionsContainer = document.getElementById('options-container');
-            optionsContainer.innerHTML = '';
-            const isAnswered = userAnswers[currentIndex] !== null;
+            document.getElementById('question-text').innerHTML = `
+                <div class="q-ar-box">${data.q_ar}</div>
+                <div class="q-en-main">${data.q_en}</div>
+            `;
             
-            const nextBtn = document.getElementById('next-btn');
-            nextBtn.disabled = !isAnswered;
-            nextBtn.innerText = (currentIndex === quizData.length - 1) ? "Finish Assessment" : "Next Question";
-            document.getElementById('prev-btn').style.visibility = (currentIndex === 0) ? "hidden" : "visible";
+            document.getElementById('hint-text').innerHTML = `
+                <div style="margin-bottom: 8px; font-weight: 500; font-size: 0.9rem; color: #fff;">${data.h_en}</div>
+                <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px; font-family: 'Tajawal', sans-serif; text-align: right; direction: rtl; color: var(--text-dim); font-size: 0.85rem;">${data.h_ar}</div>
+            `;
+
+            document.getElementById('hint-panel').classList.remove('active');
+
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+            const answered = userAnswers[index] !== null;
+            
+            document.getElementById('btn-next').disabled = !answered;
+            document.getElementById('btn-next').innerText = (index === quizData.length - 1) ? "FINALIZE" : "NEXT";
+            document.getElementById('btn-prev').disabled = index === 0;
+            
+            const btnSkip = document.getElementById('btn-skip');
+            if (answered) {
+                btnSkip.classList.add('hidden');
+            } else {
+                btnSkip.classList.remove('hidden');
+                btnSkip.innerText = "SKIP";
+            }
 
             if (data.type === "mcq") {
-                optionsContainer.className = "response-grid";
+                container.className = "options-grid";
                 data.options.forEach((opt, i) => {
                     const btn = document.createElement('button');
                     btn.className = 'option-btn';
-                    btn.innerHTML = `<span>${String.fromCharCode(65 + i)}</span> ${opt}`;
-                    btn.onclick = () => handleSelect(i);
-                    if (isAnswered) {
+                    btn.innerHTML = `<span class="char-idx">${String.fromCharCode(65 + i)}</span> <span>${opt}</span>`;
+                    if (answered) {
                         btn.disabled = true;
                         if (i === data.a) btn.classList.add('correct');
-                        if (userAnswers[currentIndex] === i && i !== data.a) btn.classList.add('wrong');
-                    }
-                    optionsContainer.appendChild(btn);
+                        if (userAnswers[index] === i && i !== data.a) btn.classList.add('wrong');
+                    } else { btn.onclick = () => select(i); }
+                    container.appendChild(btn);
                 });
             } else {
-                optionsContainer.className = "response-grid dual";
-                [true, false].forEach((val) => {
+                container.className = "options-grid two-cols";
+                [true, false].forEach(val => {
                     const btn = document.createElement('button');
                     btn.className = 'option-btn';
-                    btn.style.justifyContent = "center";
+                    btn.style.justifyContent = 'center';
                     btn.innerText = val ? "TRUE" : "FALSE";
-                    btn.onclick = () => handleSelect(val);
-                    if (isAnswered) {
+                    if (answered) {
                         btn.disabled = true;
                         if (val === data.a) btn.classList.add('correct');
-                        if (userAnswers[currentIndex] === val && val !== data.a) btn.classList.add('wrong');
-                    }
-                    optionsContainer.appendChild(btn);
+                        if (userAnswers[index] === val && val !== data.a) btn.classList.add('wrong');
+                    } else { btn.onclick = () => select(val); }
+                    container.appendChild(btn);
                 });
             }
+            document.getElementById('progress-bar').style.width = ((index + 1) / quizData.length * 100) + '%';
         }
 
-        function handleSelect(choice) {
-            if (userAnswers[currentIndex] !== null) return;
-            const elapsed = Date.now() - startTime;
-            userAnswers[currentIndex] = choice;
-            const isCorrect = choice === quizData[currentIndex].a;
-
-            if (elapsed < 1500 && isCorrect) {
-                showBeboMessage('fast');
-            } else if (isCorrect) {
-                consecutiveMistakes = 0;
-                showBeboMessage('correct');
-            } else {
-                consecutiveMistakes++;
-                if (consecutiveMistakes >= 3) {
-                    showBeboMessage('aggressive');
-                } else {
-                    showBeboMessage('wrong');
-                }
-            }
-            renderQuestion();
+        function select(choice) {
+            if (userAnswers[index] !== null) return;
+            userAnswers[index] = choice;
+            const correct = choice === quizData[index].a;
+            setBebo(correct ? 'success' : 'error', correct ? 'correct' : 'wrong', index);
+            render();
         }
 
-        function goNext() {
-            if (currentIndex < quizData.length - 1) {
-                currentIndex++;
-                renderQuestion();
-            } else {
-                showResults();
-            }
+        function move(dir) {
+            if (dir === 1 && index === quizData.length - 1) { finish(); }
+            else { index += dir; render(); }
         }
 
-        function goPrev() {
-            if (currentIndex > 0) {
-                currentIndex--;
-                renderQuestion();
-            }
-        }
-
-        function clearAnswer() {
-            if (userAnswers[currentIndex] === null) return;
-            userAnswers[currentIndex] = null;
-            renderQuestion();
-        }
-
-        function updateProgressBar() {
-            const answeredCount = userAnswers.filter(a => a !== null).length;
-            const progress = (answeredCount / quizData.length) * 100;
-            document.getElementById('progress-bar').style.width = progress + '%';
-        }
-
-        function showResults() {
+        function finish() {
             document.getElementById('quiz-ui').classList.add('hidden');
             document.getElementById('results-ui').classList.remove('hidden');
-            
-            let correctCount = userAnswers.filter((ans, i) => ans === quizData[i].a).length;
-            const percentage = Math.round((correctCount / quizData.length) * 100);
-            
-            document.getElementById('final-percentage').innerText = percentage + '%';
-            document.getElementById('final-raw').innerText = `${correctCount} / ${quizData.length} Correct Responses`;
-            
-            // Intelligence for Final Score
-            const finalMsgEl = document.getElementById('final-bebo-message');
-            if (percentage >= 85) {
-                const msgs = beboMessages.resultsSuccess;
-                finalMsgEl.innerText = msgs[Math.floor(Math.random() * msgs.length)];
-                beboVisual.className = "bebo-visual correct";
-            } else {
-                const msgs = beboMessages.resultsAdvice;
-                finalMsgEl.innerText = msgs[Math.floor(Math.random() * msgs.length)];
-                beboVisual.className = "bebo-visual thinking";
-            }
-            
-            showBeboMessage('complete');
+            document.querySelector('.bebo-wrapper').classList.add('hidden');
+            const score = userAnswers.filter((a, i) => a === quizData[i].a).length;
+            const pct = Math.round(score / quizData.length * 100);
+            document.getElementById('final-pct').innerText = pct + '%';
+            const fb = document.getElementById('final-feedback');
+            const category = pct >= 85 ? 'resultsSuccess' : 'resultsAdvice';
+            fb.innerText = beboMessages[category][Math.floor(Math.random() * beboMessages[category].length)];
         }
 
         window.onload = init;
