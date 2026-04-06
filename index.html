@@ -346,8 +346,8 @@
             background: rgba(2, 2, 4, 0.98);
             padding: 3rem 1rem;
             text-align: center;
-            color: #555;
-            font-size: 0.85rem;
+            color: #aaa;
+            font-size: 1rem;
             text-transform: uppercase;
             letter-spacing: 6px;
             border-top: 1px solid #111;
@@ -393,7 +393,7 @@
         <div class="assessment-container">
             
             <div class="bebo-wrapper">
-                <div class="bebo-bubble" id="bebo-bubble">جاري تهيئة الأنظمة...</div>
+                <div class="bebo-bubble" id="bebo-bubble">مرحبا اسمي بيبو جاهز لبدء الاختبار؟</div>
                 <div class="bebo-robot" id="bebo-robot">
                     <div class="eyes-container">
                         <div class="eye"></div>
@@ -409,7 +409,7 @@
                     </div>
 
                     <div class="card-header">
-                        <div class="meta-info">POINT <span id="current-idx">01</span> / <span id="total-idx">00</span></div>
+                        <div class="meta-info">Question <span id="current-idx">01</span> / <span id="total-idx">00</span></div>
                         <button class="hint-toggle" onclick="toggleHint()" title="Reveal Intel">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3m.08 4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
                         </button>
@@ -435,7 +435,7 @@
 
             <div id="results-ui" class="hidden">
                 <div class="card results-view">
-                    <div class="meta-info">ANALYSIS COMPLETE</div>
+                    <div class="meta-info">Complete Question</div>
                     <div class="final-pct" id="final-pct">0%</div>
                     <div class="feedback-container" id="final-feedback">...</div>
                     <button class="btn-primary" style="width: 100%" onclick="location.reload()">RESTART ASSESSMENT</button>
@@ -445,7 +445,7 @@
         </div>
     </main>
 
-    <footer>Development Bilal Mohamed</footer>
+    <footer>Developer By Bilal Mohamed</footer>
 
     <script>
         const quizData = [
@@ -500,7 +500,7 @@
         let userAnswers = new Array(quizData.length).fill(null);
 
         const beboMessages = {
-            intro: ["جاري تهيئة نظام التقييم التشخيصي. جاهز للبدء."],
+            intro: ["مرحبا اسمي بيبو جاهز لبدء الاختبار؟"],
             correct: [
                 "عاش يا وحش! أداء أسطوري.", "الله ينور عليك، تركيزك في السما!", "ممتاز! كمل يا بطل بنفس الحماس.",
                 "وحش! إجابة فنية مية مية.", "رائع، أنت فاهم اللعبة كويس جداً.", "برافو! إجابة أسطورية زي ما توقعت.",
