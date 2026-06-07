@@ -27,6 +27,24 @@ function normalizeQuizData(items) {
 
             normalized.options = optionsObj;
             normalized.arabicOptions = Object.keys(arabicOptionsObj).length ? arabicOptionsObj : normalized.arabicOptions;
+            // Fallback: if options couldn't be parsed as labeled items (e.g. simple ["True","False"]),
+            // assign sequential keys A, B, C... and split translations by '|'
+            if (Object.keys(normalized.options).length === 0 && Array.isArray(item.options)) {
+                const fallback = {};
+                const fallbackAr = {};
+                const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                item.options.forEach((opt, idx) => {
+                    if (typeof opt !== 'string') return;
+                    const parts = opt.split('|').map(p => p.trim());
+                    const key = letters[idx] || String.fromCharCode(65 + idx);
+                    fallback[key] = parts[0] || '';
+                    if (parts[1]) fallbackAr[key] = parts[1];
+                });
+                if (Object.keys(fallback).length) {
+                    normalized.options = fallback;
+                    normalized.arabicOptions = Object.keys(fallbackAr).length ? fallbackAr : normalized.arabicOptions;
+                }
+            }
         }
 
         if (!normalized.correctAnswer && typeof normalized.answer === 'string') {
