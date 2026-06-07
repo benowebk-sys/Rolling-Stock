@@ -87,10 +87,19 @@
         </defs>
     </svg>
 
-    <!-- ضع ملفات الصوت هنا: audio/fail.wav و audio/fail2.wav و audio/success.wav -->
-    <audio id="audio-fail" src="audio/fail.wav" preload="auto"></audio>
-    <audio id="audio-fail2" src="audio/fail2.wav" preload="auto"></audio>
-    <audio id="audio-success" src="audio/success.wav" preload="auto"></audio>
+    <!-- ضع ملفات الصوت هنا: audio/fail.mp3 و audio/fail2.mp3 و audio/success.mp3. يوجد هنا أيضاً دعم احتياطي لملفات WAV. -->
+    <audio id="audio-fail" preload="auto">
+        <source src="audio/fail.mp3" type="audio/mpeg">
+        <source src="audio/fail.wav" type="audio/wav">
+    </audio>
+    <audio id="audio-fail2" preload="auto">
+        <source src="audio/fail2.mp3" type="audio/mpeg">
+        <source src="audio/fail2.wav" type="audio/wav">
+    </audio>
+    <audio id="audio-success" preload="auto">
+        <source src="audio/success.mp3" type="audio/mpeg">
+        <source src="audio/success.wav" type="audio/wav">
+    </audio>
 
     <script src="quezd2.js"></script>
     <script src="script.js"></script>
