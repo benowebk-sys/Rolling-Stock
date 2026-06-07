@@ -2092,12 +2092,12 @@ function finish() {
     const category = pct >= 85 ? 'resultsSuccess' : 'resultsAdvice';
     fb.innerText = beboMessages[category][Math.floor(Math.random() * beboMessages[category].length)];
 
-    const failAudio2 = document.getElementById('audio-fail2');
+    const failAudio = document.getElementById('audio-fail');
     const successAudio = document.getElementById('audio-success');
     if (pct >= 80) {
         successAudio?.play().catch(() => {});
     } else {
-        failAudio2?.play().catch(() => {});
+        failAudio?.play().catch(() => {});
     }
 
     const actionBtn = document.getElementById('results-action');
