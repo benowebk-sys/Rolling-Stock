@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rolling Stock</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -67,7 +68,7 @@
                     <div class="meta-info">Complete Question</div>
                     <div class="final-pct" id="final-pct">0%</div>
                     <div class="feedback-container" id="final-feedback">...</div>
-                    <button class="btn-primary btn-full" onclick="location.reload()">RESTART ASSESSMENT</button>
+                    <button class="btn-primary btn-full" id="results-action">RESTART ASSESSMENT</button>
                 </div>
             </div>
 
@@ -86,6 +87,12 @@
         </defs>
     </svg>
 
+    <!-- ضع ملفات الصوت هنا: audio/fail.wav و audio/fail2.wav و audio/success.wav -->
+    <audio id="audio-fail" src="audio/fail.wav" preload="auto"></audio>
+    <audio id="audio-fail2" src="audio/fail2.wav" preload="auto"></audio>
+    <audio id="audio-success" src="audio/success.wav" preload="auto"></audio>
+
+    <script src="quezd2.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -1,4 +1,48 @@
-const quizData = [
+function normalizeQuizData(items) {
+    return items.map(item => {
+        const normalized = { ...item };
+
+        if (!normalized.arabicQuestion) {
+            normalized.arabicQuestion = normalized.translation || '';
+        }
+        if (!normalized.arabicOptions) {
+            normalized.arabicOptions = {};
+        }
+
+        if (Array.isArray(normalized.options)) {
+            const optionsObj = {};
+            const arabicOptionsObj = {};
+
+            normalized.options.forEach(optionText => {
+                if (typeof optionText !== 'string') return;
+                const match = optionText.trim().match(/^([A-D])[.)]?\s*(.*)$/i);
+                if (!match) return;
+                const key = match[1].toUpperCase();
+                const rest = match[2] || '';
+                const parts = rest.split('|').map(part => part.trim());
+
+                optionsObj[key] = parts[0] || rest;
+                arabicOptionsObj[key] = parts[1] || '';
+            });
+
+            normalized.options = optionsObj;
+            normalized.arabicOptions = Object.keys(arabicOptionsObj).length ? arabicOptionsObj : normalized.arabicOptions;
+        }
+
+        if (!normalized.correctAnswer && typeof normalized.answer === 'string') {
+            const ansMatch = normalized.answer.trim().match(/^([A-D])/i);
+            if (ansMatch) normalized.correctAnswer = ansMatch[1].toUpperCase();
+        }
+
+        if (!normalized.hint) normalized.hint = normalized.hintEN || '';
+        if (!normalized.arabicHint) normalized.arabicHint = normalized.hintAR || '';
+
+        return normalized;
+    });
+}
+
+const quizData2Normalized = normalizeQuizData(typeof quizData2 !== 'undefined' ? quizData2 : []);
+const quizDataMain = normalizeQuizData([
     {
         id: 1,
         question: "Which coupler type is characterized by a 'knuckle' shape and is standard for heavy-haul and most modern passenger trains?",
@@ -1899,7 +1943,11 @@ const quizData = [
         hint: "Mechanical drive from wheel rotation.",
         arabicHint: "القيادة الميكانيكية من دوران العجلات."
     }
-];
+]);
+
+const quizzes = [quizData2Normalized, quizDataMain].filter(q => q.length > 0);
+let currentQuizIndex = 0;
+let quizData = quizzes[currentQuizIndex];
 
 let index = 0;
 let userAnswers = new Array(quizData.length).fill(null);
@@ -1939,9 +1987,24 @@ function setBebo(state, category, specificIdx = -1) {
 function toggleHint() { document.getElementById('hint-panel').classList.toggle('active'); }
 
 function init() {
-    document.getElementById('total-idx').innerText = quizData.length.toString().padStart(2, '0');
+    if (quizzes.length === 0) {
+        document.getElementById('quiz-ui').classList.add('hidden');
+        document.getElementById('results-ui').classList.remove('hidden');
+        document.getElementById('final-pct').innerText = '0%';
+        document.getElementById('final-feedback').innerText = 'لا توجد بيانات اختبار متاحة.';
+        return;
+    }
+    setCurrentQuiz(0);
     document.querySelector('.bebo-wrapper').classList.add('hidden');
     render();
+}
+
+function setCurrentQuiz(quizIndex) {
+    currentQuizIndex = quizIndex;
+    quizData = quizzes[currentQuizIndex];
+    index = 0;
+    userAnswers = new Array(quizData.length).fill(null);
+    document.getElementById('total-idx').innerText = quizData.length.toString().padStart(2, '0');
 }
 
 function render() {
@@ -2028,6 +2091,30 @@ function finish() {
     const fb = document.getElementById('final-feedback');
     const category = pct >= 85 ? 'resultsSuccess' : 'resultsAdvice';
     fb.innerText = beboMessages[category][Math.floor(Math.random() * beboMessages[category].length)];
+
+    const failAudio2 = document.getElementById('audio-fail2');
+    const successAudio = document.getElementById('audio-success');
+    if (pct >= 80) {
+        successAudio?.play().catch(() => {});
+    } else {
+        failAudio2?.play().catch(() => {});
+    }
+
+    const actionBtn = document.getElementById('results-action');
+    if (currentQuizIndex < quizzes.length - 1) {
+        actionBtn.innerText = 'CONTINUE TO NEXT QUIZ';
+        actionBtn.onclick = startNextQuiz;
+    } else {
+        actionBtn.innerText = 'RESTART ASSESSMENT';
+        actionBtn.onclick = () => location.reload();
+    }
+}
+
+function startNextQuiz() {
+    setCurrentQuiz(currentQuizIndex + 1);
+    document.getElementById('results-ui').classList.add('hidden');
+    document.getElementById('quiz-ui').classList.remove('hidden');
+    render();
 }
 
 window.onload = init;
