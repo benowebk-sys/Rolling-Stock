@@ -1,11 +1,11 @@
 {
-  "version": 3,
+  "version": 2,
   "builds": [
     { "src": "index.html", "use": "@vercel/static" },
     { "src": "style.css", "use": "@vercel/static" },
     { "src": "script.js", "use": "@vercel/static" },
     { "src": "quezd2.js", "use": "@vercel/static" },
-    { "src": "audio/**", "use": "@vercel/static" },
+    { "src": "audio/*", "use": "@vercel/static" },
     { "src": "favicon.ico", "use": "@vercel/static" },
     { "src": "logo.jpg", "use": "@vercel/static" }
   ]
