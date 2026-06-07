@@ -278,5 +278,185 @@ const quizData2 = [
     answer: "B. External sliding doors | ب) الأبواب المنزلقة الخارجية (External Sliding Doors)",
     hintEN: "External sliding doors employ simpler linear tracks and mechanisms outside the coach structure, making components easily accessible for technicians.",
     hintAR: "الأبواب المنزلقة الخارجية ميكانيزم تشغيلها بسيط ومثبت خارج هيكل العربة، مما يسهل على الفني الوصول للأجزاء وصيانتها بسرعة."
+  },
+  {
+    id: 21,
+    question: "Modern railway systems aim to provide safe and comfortable transportation.",
+    translation: "تهدف أنظمة السكك الحديدية الحديثة إلى توفير نقل آمن ومريح.",
+    options: ["True", "False"],
+    answer: "True",
+    hint: "Safety and comfort are the two core pillars for designing any modern transit system.",
+    hintTranslation: "الأمان والراحة هما الركيزتان الأساسيتان لتصميم أي وسيلة نقل حديثة."
+  },
+  {
+    id: 22,
+    question: "HVAC systems improve air quality inside railway coaches.",
+    translation: "أنظمة التكييف والتهوية (HVAC) تحسن جودة الهواء داخل عربات القطارات.",
+    options: ["True", "False"],
+    answer: "True",
+    hint: "Temperature control and air filtration are essential for a comfortable passenger environment.",
+    hintTranslation: "التحكم في درجات الحرارة وتنقية الهواء ضرورة لبيئة مريحة وصحية للركاب."
+  },
+  {
+    id: 23,
+    question: "The evaporator coil releases heat to the outside air.",
+    translation: "ملف المبخر يطرد الحرارة إلى الهواء الخارجي.",
+    options: ["True", "False"],
+    answer: "False",
+    hint: "The evaporator absorbs heat from the inside, while the condenser is responsible for releasing it outside.",
+    hintTranslation: "المبخر يمتص الحرارة من الداخل، بينما المكثف هو المسؤول عن طردها للخارج."
+  },
+  {
+    id: 24,
+    question: "Escalators help improve passenger flow in railway stations.",
+    translation: "السلالم المتحركة تساعد في تحسين تدفق الركاب في المحطات.",
+    options: ["True", "False"],
+    answer: "True",
+    hint: "They prevent congestion and facilitate quick passenger movement between different levels and platforms.",
+    hintTranslation: "تمنع التكدس وتسهل الحركة السريعة للركاب بين الأرصفة والصالات المختلفة."
+  },
+  {
+    id: 25,
+    question: "The electric drive provides power to move escalator steps.",
+    translation: "المحرك الكهربائي يوفر الطاقة اللازمة لتحريك درجات السلالم المتحركة.",
+    options: ["True", "False"],
+    answer: "True",
+    hint: "Without a power source and a mechanical motor, the stairs would remain a fixed structure.",
+    hintTranslation: "بدون وجود مصدر طاقة ومحرك ميكانيكي، ستظل السلالم مجرد هيكل ثابت."
+  },
+  {
+    id: 26,
+    question: "Auxiliary systems are not necessary for train operation.",
+    translation: "الأنظمة المساعدة ليست ضرورية لتشغيل القطار.",
+    options: ["True", "False"],
+    answer: "False",
+    hint: "Lighting, air conditioning, and control systems rely heavily on auxiliary systems to function properly.",
+    hintTranslation: "أنظمة الإضاءة، التكييف، والتحكم تعتمد كلياً على الأنظمة المساعدة لضمان عمل القطار."
+  },
+  {
+    id: 27,
+    question: "Compressed air systems are used to operate train brakes.",
+    translation: "أنظمة الهواء المضغوط تستخدم لتشغيل مكابح القطارات.",
+    options: ["True", "False"],
+    answer: "True",
+    hint: "Compressed air is the most reliable mechanical medium to safely stop massive steel train masses.",
+    hintTranslation: "الهواء المضغوط هو الوسيط الميكانيكي الأكثر موثوقية لإيقاف الكتل الحديدية الضخمة."
+  },
+  {
+    id: 28,
+    question: "The air compressor produces compressed air in locomotives.",
+    translation: "ضاغط الهواء ينتج الهواء المضغوط في القاطرات.",
+    options: ["True", "False"],
+    answer: "True",
+    hint: "It is the mechanical component responsible for drawing atmospheric air, compressing it, and feeding the network.",
+    hintTranslation: "هو المكون الميكانيكي المسؤول عن سحب الهواء الجوي وضغطه وتغذيته للشبكة."
+  },
+  {
+    id: 29,
+    question: "The main reservoir stores compressed air.",
+    translation: "الخزان الرئيسي يخزن الهواء المضغوط.",
+    options: ["True", "False"],
+    answer: "True",
+    hint: "It acts as a backup storage to ensure there is no sudden pressure drop in the braking and other auxiliary systems.",
+    hintTranslation: "يعمل كمخزن احتياطي لضمان عدم حدوث هبوط مفاجئ في ضغط الفرامل والأنظمة الأخرى."
+  },
+  {
+    id: 30,
+    question: "Comfort and safety systems work together in modern railway engineering.",
+    translation: "أنظمة الراحة والأمان تعمل معاً في هندسة السكك الحديدية الحديثة.",
+    options: ["True", "False"],
+    answer: "True",
+    hint: "Modern integrated design aims to deliver a safe and comfortable experience simultaneously without separating them.",
+    hintTranslation: "التكامل في التصميم الحديث يهدف لتقديم تجربة آمنة ومريحة في آن واحد دون فصل بينهما."
+  },
+  {
+    id: 31,
+    question: "The Link-and-Pin coupler requires automatic operation.",
+    translation: "أداة الربط من نوع 'حلقة ودبوس' تتطلب تشغيلاً أوتوماتيكياً.",
+    options: ["True", "False"],
+    answer: "False",
+    hint: "This is a very old, traditional method that requires dangerous manual intervention by workers to couple the coaches.",
+    hintTranslation: "هذه طريقة تقليدية قديمة جداً وتتطلب تدخلاً يدوياً خطيراً من العمال للربط."
+  },
+  {
+    id: 32,
+    question: "Bar couplers are suitable for trains that frequently change coach numbers.",
+    translation: "أداة الربط القضيبية (Bar) مناسبة للقطارات التي تغير عدد عرباتها باستمرار.",
+    options: ["True", "False"],
+    answer: "False",
+    hint: "This type is used for fixed formations that are rarely uncoupled except inside maintenance workshops.",
+    hintTranslation: "هذا النوع يُستخدم للقطارات ذات التشكيل الثابت (Fixed Formations) التي لا تنفصل إلا في الورش."
+  },
+  {
+    id: 33,
+    question: "Screw couplings are common in Europe and the Middle East.",
+    translation: "الوصلات اللولبية شائعة في أوروبا والشرق الأوسط.",
+    options: ["True", "False"],
+    answer: "True",
+    hint: "They are considered among the traditional standard systems that remain in service on lines across these regions.",
+    hintTranslation: "تعتبر من الأنظمة القياسية التقليدية المستمرة في الخدمة في خطوط هذه المناطق."
+  },
+  {
+    id: 34,
+    question: "Buckeye couplers eliminate the need for workers to stand between coaches.",
+    translation: "وصلات 'بوكاي' تلغي الحاجة لوقوف العمال بين العربات.",
+    options: ["True", "False"],
+    answer: "True",
+    hint: "They were invented and designed to enhance worker safety by allowing automatic coupling upon contact.",
+    hintTranslation: "تم ابتكارها وتصميمها لتعزيز سلامة المناورين عبر السماح بالربط التلقائي عند التلامس."
+  },
+  {
+    id: 35,
+    question: "Scharfenberg couplers allow slack between connected coaches.",
+    translation: "وصلات 'شارفنبيرج' تسمح بوجود فجوة (رخاوة) بين العربات المتصلة.",
+    options: ["True", "False"],
+    answer: "False",
+    hint: "This type provides a highly precise and rigid connection with zero play to ensure maximum stability.",
+    hintTranslation: "هذا النوع يوفر اتصالاً محكماً ودقيقاً جداً (Rigid) بدون أي بوش أو ارتخاء لضمان الثبات."
+  },
+  {
+    id: 36,
+    question: "Slam doors can be safely opened while the train is moving.",
+    translation: "أبواب 'سْلام' يمكن فتحها بأمان أثناء حركة القطار.",
+    options: ["True", "False"],
+    answer: "False",
+    hint: "Traditional manual doors pose a fatal safety hazard if opened while the train is in motion.",
+    hintTranslation: "الأبواب اليدوية التقليدية تشكل خطراً مميتاً على السلامة إذا فُتحت أثناء السير."
+  },
+  {
+    id: 137,
+    question: "Bi-folding doors require frequent maintenance due to multiple moving parts.",
+    translation: "الأبواب القابلة للطي (Bi-folding) تحتاج صيانة متكررة لكثرة أجزائها المتحركة.",
+    options: ["True", "False"],
+    answer: "True",
+    hint: "An increased number of mechanical hinges and linkages naturally raises friction and potential failure rates.",
+    hintTranslation: "زيادة عدد المفصلات والمحاور الميكانيكية ترفع تلقائياً من معدلات الاحتكاك والأعطال."
+  },
+  {
+    id: 38,
+    question: "Plug doors sit flush with the train body to reduce aerodynamic drag.",
+    translation: "أبواب 'التوصيل' (Plug doors) تكون مستوية مع هيكل القطار لتقليل السحب الأيروديناميكي.",
+    options: ["True", "False"],
+    answer: "True",
+    hint: "Streamlining and sealing gaps with the outer body are the main goals to reduce air resistance.",
+    hintTranslation: "الانسيابية وسد الفجوات مع الهيكل الخارجي هما الهدف الأساسي لتقليل مقاومة الهواء."
+  },
+  {
+    id: 39,
+    question: "External sliding doors are commonly used in metro systems.",
+    translation: "الأبواب المنزلقة الخارجية شائعة الاستخدام في أنظمة المترو.",
+    options: ["True", "False"],
+    answer: "True",
+    hint: "Their design allows doors to open quickly without occupying internal cabin space, facilitating heavy crowd control.",
+    hintTranslation: "تصميمها يسمح بفتح الأبواب سريعاً دون أخذ مساحة من داخل العربة، مما يسهل حركة الحشود."
+  },
+  {
+    id: 40,
+    question: "Modern railway engineering focuses on safety, efficiency, and passenger comfort.",
+    translation: "هندسة السكك الحديدية الحديثة تركز على الأمان، الكفاءة، وراحة الركاب.",
+    options: ["True", "False"],
+    answer: "True",
+    hint: "This is the core golden triangle used to evaluate and develop any advanced mass transit system.",
+    hintTranslation: "هذا هو المثلث الأساسي والمعيار الذهبي لتقييم وتطوير أي شبكة نقل جماعي متطورة."
   }
 ];
