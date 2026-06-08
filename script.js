@@ -48,8 +48,19 @@ function normalizeQuizData(items) {
         }
 
         if (!normalized.correctAnswer && typeof normalized.answer === 'string') {
-            const ansMatch = normalized.answer.trim().match(/^([A-D])/i);
-            if (ansMatch) normalized.correctAnswer = ansMatch[1].toUpperCase();
+            const answerText = normalized.answer.trim();
+            const ansMatch = answerText.match(/^([A-D])/i);
+            if (ansMatch) {
+                normalized.correctAnswer = ansMatch[1].toUpperCase();
+            } else if (normalized.options && typeof normalized.options === 'object') {
+                const lowerAnswer = answerText.toLowerCase();
+                for (const [optKey, optValue] of Object.entries(normalized.options)) {
+                    if (typeof optValue === 'string' && optValue.trim().toLowerCase() === lowerAnswer) {
+                        normalized.correctAnswer = optKey;
+                        break;
+                    }
+                }
+            }
         }
 
         if (!normalized.hint) normalized.hint = normalized.hintEN || '';
